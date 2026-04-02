@@ -78,3 +78,4 @@ jobs:
           files: seedroller-ui-win-x64.zip
           draft: false
           prerelease: false
+
