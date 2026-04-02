@@ -37,18 +37,39 @@ jobs:
         with:
           dotnet-version: "9.0.x"
 
-      - name: Restore
+      - name: Restore UI
         shell: pwsh
         run: dotnet restore src/SeedRollerUI/SeedRollerUI.csproj /p:GameDataPath="$env:GAME_DATA_PATH"
 
-      - name: Build
+      - name: Restore CLI
+        shell: pwsh
+        run: dotnet restore src/SeedRollerCli/SeedRollerCli.csproj /p:GameDataPath="$env:GAME_DATA_PATH"
+
+      - name: Build UI
         shell: pwsh
         run: dotnet build src/SeedRollerUI/SeedRollerUI.csproj -c Release --no-restore /p:GameDataPath="$env:GAME_DATA_PATH"
 
-      - name: Publish WPF UI
+      - name: Build CLI
+        shell: pwsh
+        run: dotnet build src/SeedRollerCli/SeedRollerCli.csproj -c Release --no-restore /p:GameDataPath="$env:GAME_DATA_PATH"
+
+      - name: Publish UI
         shell: pwsh
         run: |
           dotnet publish src/SeedRollerUI/SeedRollerUI.csproj `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            /p:PublishSingleFile=true `
+            /p:IncludeNativeLibrariesForSelfExtract=true `
+            /p:GameDataPath="$env:GAME_DATA_PATH" `
+            /p:DebugType=None `
+            /p:DebugSymbols=false
+
+      - name: Publish CLI
+        shell: pwsh
+        run: |
+          dotnet publish src/SeedRollerCli/SeedRollerCli.csproj `
             -c Release `
             -r win-x64 `
             --self-contained true `
@@ -62,14 +83,19 @@ jobs:
         id: package
         shell: pwsh
         run: |
-          $publishDir = Join-Path $env:GITHUB_WORKSPACE 'src/SeedRollerUI/bin/Release/net9.0-windows/win-x64/publish'
-          if (-not (Test-Path $publishDir)) { Write-Error "发布目录不存在: $publishDir" }
+          $uiPublish = Join-Path $env:GITHUB_WORKSPACE 'src/SeedRollerUI/bin/Release/net9.0-windows/win-x64/publish'
+          $cliPublish = Join-Path $env:GITHUB_WORKSPACE 'src/SeedRollerCli/bin/Release/net9.0/win-x64/publish'
+          if (-not (Test-Path $uiPublish)) { Write-Error "发布目录不存在: $uiPublish" }
+          if (-not (Test-Path $cliPublish)) { Write-Error "CLI 发布目录不存在: $cliPublish" }
           $seedInfoSrc = Join-Path $env:GITHUB_WORKSPACE 'src/SeedRollerUI/seed_info.json'
           if (Test-Path $seedInfoSrc) {
-            Copy-Item $seedInfoSrc (Join-Path $publishDir 'seed_info.json') -Force
+            Copy-Item $seedInfoSrc (Join-Path $uiPublish 'seed_info.json') -Force
           }
+          $cliTarget = Join-Path $uiPublish 'cli'
+          if (Test-Path $cliTarget) { Remove-Item $cliTarget -Recurse -Force }
+          Copy-Item $cliPublish $cliTarget -Recurse -Force
           $zipPath = Join-Path $env:GITHUB_WORKSPACE 'seedroller-ui-win-x64.zip'
-          Compress-Archive -Path (Join-Path $publishDir '*') -DestinationPath $zipPath -Force
+          Compress-Archive -Path (Join-Path $uiPublish '*') -DestinationPath $zipPath -Force
           "artifactPath=$zipPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
       - name: Upload artifact

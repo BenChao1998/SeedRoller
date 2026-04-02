@@ -44,10 +44,9 @@ SeedRoller 是一个针对《Slay the Spire 2》首层奖励的种子滚动工具，包含：
 
 GitHub Actions 会在 push / PR 时自动构建 `seedroller-ui-win-x64` 工件；如创建 Release，将同一 zip 附在版本页面。下载并解压后：
 
-1. 确认 zip 中含有 `SeedRollerUI.exe`、`seed_info.json`、`game_libs/`。
-2. 双击运行 `SeedRollerUI.exe`，按 UI 提示填写 `Data 路径` 与筛选条件即可。
-
-CLI 版本可参照 [docs/PUBLISHING.md](docs/PUBLISHING.md) 使用 `dotnet publish` 生成单文件可执行包。
+1. 确认 zip 中含有 `SeedRollerUI.exe`、`seed_info.json` 以及 `cli` 子目录（内含 CLI 的 `SeedRollerCli.exe`）。
+2. UI：双击运行 `SeedRollerUI.exe`，按提示填写 `Data 路径` 与筛选条件即可。
+3. CLI：进入 `cli` 子目录运行 `SeedRollerCli.exe --config config.json` 等命令行，功能与 UI 一致。
 
 ## 文档索引
 
@@ -68,8 +67,8 @@ CLI 版本可参照 [docs/PUBLISHING.md](docs/PUBLISHING.md) 使用 `dotnet publish` 生
 
 ## 持续集成 & 发布
 
-- `.github/workflows/ui-build.yml`：针对 `main/master` 的 push/PR，负责常规构建并上传 `seedroller-ui-win-x64` artifact。
-- `.github/workflows/release-build.yml`：当推送 `v*` 标签时运行，重新打包并把 zip 自动上传到 GitHub Release。
+- `.github/workflows/ui-build.yml`：针对 `main/master` 的 push/PR，负责常规构建并上传包含 UI + CLI + seed_info 的 zip artifact。
+- `.github/workflows/release-build.yml`：当推送 `v*` 标签时运行，重新打包并把同一个 zip 自动上传到 GitHub Release。
 - 若不希望直接托管 DLL，可删除 `game_libs/`，并在 CI 中改为私有下载方案。
 
 ## 许可
