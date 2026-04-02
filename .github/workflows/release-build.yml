@@ -59,11 +59,14 @@ jobs:
         run: |
           $publishDir = Join-Path $env:GITHUB_WORKSPACE 'src/SeedRollerUI/bin/Release/net9.0-windows/win-x64/publish'
           if (-not (Test-Path $publishDir)) { Write-Error "发布目录不存在: $publishDir" }
+          $seedInfoSrc = Join-Path $env:GITHUB_WORKSPACE 'src/SeedRollerUI/seed_info.json'
+          if (Test-Path $seedInfoSrc) {
+            Copy-Item $seedInfoSrc (Join-Path $publishDir 'seed_info.json') -Force
+          }
           $zipName = 'seedroller-ui-win-x64.zip'
           $zipPath = Join-Path $env:GITHUB_WORKSPACE $zipName
           Compress-Archive -Path (Join-Path $publishDir '*') -DestinationPath $zipPath -Force
           "artifactPath=$zipPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          "artifactName=$zipName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -78,4 +81,3 @@ jobs:
           files: seedroller-ui-win-x64.zip
           draft: false
           prerelease: false
-
