@@ -3,6 +3,7 @@ name: Build SeedRoller UI
 on:
   push:
     branches: [ main, master ]
+    tags: ['v*']
     paths:
       - "src/**"
       - "game_libs/**"
@@ -73,3 +74,12 @@ jobs:
         with:
           name: seedroller-ui-win-x64
           path: ${{ steps.package.outputs.artifactPath }}
+
+      - name: Publish GitHub Release asset
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: ${{ steps.package.outputs.artifactPath }}
+          draft: false
+          prerelease: false
