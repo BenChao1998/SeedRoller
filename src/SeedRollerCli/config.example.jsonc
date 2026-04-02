@@ -1,0 +1,38 @@
+// SeedRollerCli 配置示例（JSON with Comments）
+// 保存为 config.json 时请先删除所有注释。
+{
+  // 游戏安装 data 路径；为空时会读取环境变量 STS2_DATA_PATH。
+  "gameDataPath": "I:/SteamLibrary/steamapps/common/Slay the Spire 2/data_sts2_windows_x86_64",
+
+  // seed_info.json 是由 CLI/GUI 附带的静态资料文件，默认放在可执行文件同目录。
+  // 如果你把它放在别处，可以在这里指定绝对路径；留空则回退到程序目录下的 seed_info.json。
+  "seedInfoPath": "seed_info.json",
+
+  // 起始种子与 roll 数量。
+  "startSeed": "1234567890",
+  "count": 50,
+
+  // 种子模式：incremental（顺推）或 random（游戏同款随机，默认值）。
+  "mode": "random",
+
+  // 角色：ironclad / silent / regent / necrobinder / defect。
+  "character": "defect",
+
+  // 心境等级（0~20）。
+  "ascension": 0,
+
+  // 保存 roll 结果的 JSON 文件；留空时默认写入 seed_results.json。
+  "resultJson": "seed_results.json",
+
+  "filter": {
+    // kind 可填 positive / curse，留空表示不过滤正负向。
+    "kind": null,
+
+    // relicTerms 为遗物名称/描述/备注的模糊关键字；
+    // relicIds/cardIds/potionIds 则要求全部匹配对应 ID。
+    "relicTerms": ["诅咒"],
+    "relicIds": ["ARCANE_SCROLL"],
+    "cardIds": [],
+    "potionIds": []
+  }
+}

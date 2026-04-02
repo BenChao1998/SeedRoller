@@ -1,0 +1,396 @@
+﻿<Window x:Class="SeedRollerUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Seed Roller UI"
+        Height="820"
+        Width="1280"
+        MinWidth="1100"
+        MinHeight="720"
+        Background="#FFF7F7F7"
+        Foreground="#FF1F1F1F">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="16">
+                <TextBlock Text="开局种子筛选配置"
+                           FontSize="20"
+                           FontWeight="Bold" />
+
+                <GroupBox Header="游戏与资料"
+                          Margin="0,12,0,0">
+                    <Grid Margin="0,8,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                   Text="Data 路径"
+                                   VerticalAlignment="Center" />
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 Margin="6,4"
+                                 Text="{Binding GameDataPath, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Row="0"
+                                Grid.Column="2"
+                                Margin="6,4,0,4"
+                                Content="浏览…"
+                                Click="BrowseGameData_Click" />
+
+                        <TextBlock Grid.Row="1"
+                                   Text="seed_info.json"
+                                   VerticalAlignment="Center" />
+                        <TextBox Grid.Row="1"
+                                 Grid.Column="1"
+                                 Margin="6,4"
+                                 Text="{Binding SeedInfoPath, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="6,4,0,4"
+                                Content="选择…"
+                                Click="BrowseSeedInfo_Click" />
+
+                        <TextBlock Grid.Row="2"
+                                   Grid.ColumnSpan="3"
+                                   Margin="0,4,0,0"
+                                   Foreground="#FF5A5A5A"
+                                   FontSize="12"
+                                   TextWrapping="Wrap"
+                                   Text="seed_info.json 存放遗物/卡牌/药水的本地化名称，默认读取程序同目录，可在此指定其他位置。" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="角色与种子"
+                          Margin="0,12,0,0">
+                    <Grid Margin="0,8,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="130" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                   Text="角色"
+                                   VerticalAlignment="Center" />
+                        <ComboBox Grid.Row="0"
+                                  Grid.Column="1"
+                                  Margin="6,4"
+                                  ItemsSource="{Binding CharacterOptions}"
+                                  SelectedValuePath="Value"
+                                  DisplayMemberPath="DisplayName"
+                                  SelectedValue="{Binding SelectedCharacter}" />
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="2"
+                                   Text="心境等级"
+                                   VerticalAlignment="Center" />
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="3"
+                                 Margin="6,4"
+                                 Text="{Binding AscensionText, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <TextBlock Grid.Row="1"
+                                   Text="种子模式"
+                                   VerticalAlignment="Center" />
+                        <ComboBox Grid.Row="1"
+                                  Grid.Column="1"
+                                  Margin="6,4"
+                                  ItemsSource="{Binding SeedModeOptions}"
+                                  SelectedValuePath="Value"
+                                  DisplayMemberPath="DisplayName"
+                                  SelectedValue="{Binding SelectedSeedMode}" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="2"
+                                   Text="起始种子"
+                                   VerticalAlignment="Center" />
+                        <TextBox Grid.Row="1"
+                                 Grid.Column="3"
+                                 Margin="6,4"
+                                 Text="{Binding StartSeed, UpdateSourceTrigger=PropertyChanged}"
+                                 IsEnabled="{Binding IsIncrementalMode}" />
+
+                        <TextBlock Grid.Row="2"
+                                   Text="滚动数量"
+                                   VerticalAlignment="Center" />
+                        <TextBox Grid.Row="2"
+                                 Grid.Column="1"
+                                 Margin="6,4"
+                                 Text="{Binding CountText, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="筛选条件"
+                          Margin="0,12,0,0">
+                    <StackPanel Margin="0,8,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       Text="选项类型"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Grid.Row="0"
+                                      Grid.Column="1"
+                                      Margin="6,4"
+                                      ItemsSource="{Binding FilterKindOptions}"
+                                      SelectedValuePath="Value"
+                                      DisplayMemberPath="DisplayName"
+                                      SelectedValue="{Binding SelectedFilterKind}" />
+
+                            <StackPanel Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        Orientation="Horizontal"
+                                        Margin="6,0,0,4">
+                                <TextBlock Text="遗物筛选方式："
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,8,0" />
+                                <RadioButton Content="按关键字"
+                                             GroupName="RelicFilterMode"
+                                             Margin="0,0,12,0"
+                                             IsChecked="{Binding IsRelicKeywordMode}" />
+                                <RadioButton Content="按 ID"
+                                             GroupName="RelicFilterMode"
+                                             IsChecked="{Binding IsRelicIdMode}" />
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="2"
+                                       Text="遗物关键字"
+                                       VerticalAlignment="Top" />
+                            <TextBox Grid.Row="2"
+                                     Grid.Column="1"
+                                     Margin="6,4"
+                                     Height="60"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     IsEnabled="{Binding IsRelicKeywordMode}"
+                                     Text="{Binding FilterRelicTerms, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock Grid.Row="3"
+                                       Text="遗物 ID"
+                                       VerticalAlignment="Top" />
+                            <TextBox Grid.Row="3"
+                                     Grid.Column="1"
+                                     Margin="6,4"
+                                     Height="60"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     IsEnabled="{Binding IsRelicIdMode}"
+                                     Text="{Binding FilterRelicIds, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock Grid.Row="4"
+                                       Text="卡牌 ID"
+                                       VerticalAlignment="Top" />
+                            <TextBox Grid.Row="4"
+                                     Grid.Column="1"
+                                     Margin="6,4"
+                                     Height="60"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Text="{Binding FilterCardIds, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock Grid.Row="5"
+                                       Text="药水 ID"
+                                       VerticalAlignment="Top" />
+                            <TextBox Grid.Row="5"
+                                     Grid.Column="1"
+                                     Margin="6,4"
+                                     Height="60"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Text="{Binding FilterPotionIds, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                        <TextBlock Margin="6,4,6,0"
+                                   Foreground="#FF5A5A5A"
+                                   FontSize="12"
+                                   TextWrapping="Wrap"
+                                   Text="提示：多项可用换行、逗号、分号或 | 分隔。卡牌/药水/遗物 ID 会视为“全部满足”。" />
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="输出"
+                          Margin="0,12,0,24">
+                    <Grid Margin="0,8,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                   Text="结果 JSON"
+                                   VerticalAlignment="Center" />
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 Margin="6,4"
+                                 Text="{Binding ResultJsonPath, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Row="0"
+                                Grid.Column="2"
+                                Margin="6,4,0,4"
+                                Content="保存到…"
+                                Click="BrowseResultJson_Click" />
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Column="1"
+              Margin="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="运行概览"
+                      Grid.Row="0">
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="已检查种子："
+                               FontWeight="Bold" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Text="{Binding ProcessedSeeds}" />
+
+                    <TextBlock Grid.Row="1"
+                               Text="匹配种子："
+                               FontWeight="Bold" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding MatchedSeeds}" />
+
+                    <TextBlock Grid.Row="2"
+                               Text="匹配选项："
+                               FontWeight="Bold" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="{Binding MatchedOptions}" />
+
+                    <TextBlock Grid.Row="3"
+                               Text="结果文件："
+                               FontWeight="Bold" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Text="{Binding LastResultPath}"
+                               TextWrapping="Wrap" />
+
+                    <TextBlock Grid.Row="4"
+                               Text="状态："
+                               FontWeight="Bold" />
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="1"
+                               Text="{Binding StatusMessage}"
+                               TextWrapping="Wrap" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="操作"
+                      Grid.Row="1"
+                      Margin="0,12,0,12">
+                <WrapPanel Margin="8">
+                    <Button Content="开始 Roll"
+                            Width="150"
+                            Height="36"
+                            Margin="4"
+                            IsEnabled="{Binding CanStart}"
+                            Click="StartRoll_Click" />
+                    <Button Content="取消"
+                            Width="150"
+                            Height="36"
+                            Margin="4"
+                            IsEnabled="{Binding CanCancel}"
+                            Click="CancelRoll_Click" />
+                    <Button Content="加载 config.json"
+                            Width="150"
+                            Height="36"
+                            Margin="4"
+                            Click="LoadConfig_Click" />
+                    <Button Content="保存 config.json"
+                            Width="150"
+                            Height="36"
+                            Margin="4"
+                            Click="SaveConfig_Click" />
+                    <Button Content="清空日志"
+                            Width="150"
+                            Height="36"
+                            Margin="4"
+                            Click="ClearLogs_Click" />
+                    <Button Content="打开结果 JSON"
+                            Width="150"
+                            Height="36"
+                            Margin="4"
+                            IsEnabled="{Binding HasResult}"
+                            Click="OpenResult_Click" />
+                </WrapPanel>
+            </GroupBox>
+
+            <GroupBox Header="日志"
+                      Grid.Row="2">
+                <ListBox ItemsSource="{Binding Logs}"
+                         Margin="8"
+                         BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding TimestampText}"
+                                           Width="70" />
+                                <TextBlock Text="{Binding LevelText}"
+                                           Width="50"
+                                           FontWeight="Bold" />
+                                <TextBlock Text="{Binding Message}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>

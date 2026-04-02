@@ -1,0 +1,57 @@
+name: Build SeedRoller UI
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - "src/**"
+      - ".github/workflows/ui-build.yml"
+      - "README.md"
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-ui:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore
+        run: dotnet restore src/SeedRollerUI/SeedRollerUI.csproj
+
+      - name: Build
+        run: dotnet build src/SeedRollerUI/SeedRollerUI.csproj -c Release --no-restore
+
+      - name: Publish WPF UI
+        run: |
+          dotnet publish src/SeedRollerUI/SeedRollerUI.csproj `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            /p:PublishSingleFile=true `
+            /p:IncludeNativeLibrariesForSelfExtract=true `
+            /p:DebugType=None `
+            /p:DebugSymbols=false
+        shell: pwsh
+
+      - name: Package artifact
+        id: package
+        run: |
+          $publishDir = Join-Path 'src/SeedRollerUI/bin/Release/net9.0-windows/win-x64/publish'
+          $zipPath = Join-Path $env:RUNNER_TEMP 'seedroller-ui-win-x64.zip'
+          Compress-Archive -Path (Join-Path $publishDir '*') -DestinationPath $zipPath -Force
+          "artifactPath=$zipPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+        shell: pwsh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: seedroller-ui-win-x64
+          path: ${{ steps.package.outputs.artifactPath }}

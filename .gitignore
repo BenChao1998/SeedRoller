@@ -1,0 +1,39 @@
+# Build outputs
+bin/
+obj/
+[Bb]uild/
+[Bb]in/Debug/
+[Bb]in/Release/
+**/bin/
+**/obj/
+
+# VS/JetBrains/Rider
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+*.csproj.user
+
+# Logs / cache
+*.log
+*.tlog
+*.cache
+
+# Packages
+*.nupkg
+.nuget/
+
+# Publish artifacts
+artifacts/
+*.publish.xml
+**/publish/
+
+# Local-only assets
+Slay the Spire 2 源码/
+.codex_tmp/
+seed_results.json
+
+# OS junk
+Thumbs.db
+.DS_Store

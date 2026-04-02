@@ -1,0 +1,2830 @@
+{
+  "GeneratedAt": "2026-04-02T14:18:54.6211735+08:00",
+  "Language": "zhs",
+  "Options": [
+    {
+      "RelicId": "LOST_COFFER",
+      "Kind": "Positive",
+      "Title": "失物盒",
+      "Description": "拾起时，获得1组卡牌奖励和1瓶随机药水。",
+      "Note": null
+    },
+    {
+      "RelicId": "ARCANE_SCROLL",
+      "Kind": "Positive",
+      "Title": "奥术卷轴",
+      "Description": "拾起时，将一张随机稀有牌加入你的牌组。",
+      "Note": null
+    },
+    {
+      "RelicId": "SMALL_CAPSULE",
+      "Kind": "Positive",
+      "Title": "小型扭蛋",
+      "Description": "拾起时，获得一件随机遗物。",
+      "Note": "拾荒"
+    },
+    {
+      "RelicId": "MASSIVE_SCROLL",
+      "Kind": "Positive",
+      "Title": "巨大卷轴",
+      "Description": "拾起时，从3张多人游戏牌中选择1张加入你的牌组。",
+      "Note": "牧师"
+    },
+    {
+      "RelicId": "NEW_LEAF",
+      "Kind": "Positive",
+      "Title": "新叶",
+      "Description": "拾起时，变化{Cards}张牌。",
+      "Note": null
+    },
+    {
+      "RelicId": "POMANDER",
+      "Kind": "Positive",
+      "Title": "橙型香盒",
+      "Description": "拾起时，升级一张牌。",
+      "Note": null
+    },
+    {
+      "RelicId": "NEOWS_TORMENT",
+      "Kind": "Positive",
+      "Title": "涅奥的苦痛",
+      "Description": "拾起时，将1张涅奥之怒加入你的牌组。",
+      "Note": null
+    },
+    {
+      "RelicId": "LAVA_ROCK",
+      "Kind": "Positive",
+      "Title": "熔岩石",
+      "Description": "第一阶段的Boss敌人额外掉落{Relics}件遗物。",
+      "Note": "耐心"
+    },
+    {
+      "RelicId": "STONE_HUMIDIFIER",
+      "Kind": "Positive",
+      "Title": "石炉加湿器",
+      "Description": "每当你在休息处休息时，将你的最大生命值提升{MaxHp}点。",
+      "Note": "安全"
+    },
+    {
+      "RelicId": "PRECISE_SCISSORS",
+      "Kind": "Positive",
+      "Title": "精准剪刀",
+      "Description": "拾起时，从你的牌组中移除{Cards}张牌。",
+      "Note": null
+    },
+    {
+      "RelicId": "NUTRITIOUS_OYSTER",
+      "Kind": "Positive",
+      "Title": "营养牡蛎",
+      "Description": "拾起时，将你的最大生命值提升{MaxHp}。",
+      "Note": "韧性"
+    },
+    {
+      "RelicId": "BOOMING_CONCH",
+      "Kind": "Positive",
+      "Title": "轰鸣海螺",
+      "Description": "在精英战的战斗开始时，额外抽{Cards}张牌。",
+      "Note": null
+    },
+    {
+      "RelicId": "GOLDEN_PEARL",
+      "Kind": "Positive",
+      "Title": "金色珍珠",
+      "Description": "拾起时，获得{Gold}金币。",
+      "Note": null
+    },
+    {
+      "RelicId": "LEAD_PAPERWEIGHT",
+      "Kind": "Positive",
+      "Title": "铅制镇纸",
+      "Description": "拾起时，从2张无色牌中选择1张加入你的牌组。",
+      "Note": null
+    },
+    {
+      "RelicId": "SCROLL_BOXES",
+      "Kind": "Curse",
+      "Title": "卷轴箱",
+      "Description": "拾起时，失去所有金币，并从2个卡牌包中选择1包加入你的牌组。",
+      "Note": "礼盒"
+    },
+    {
+      "RelicId": "LARGE_CAPSULE",
+      "Kind": "Curse",
+      "Title": "巨大扭蛋",
+      "Description": "拾起时，获得{Relics}件随机遗物。额外将一对打击和防御，加入你的牌组。",
+      "Note": null
+    },
+    {
+      "RelicId": "PRECARIOUS_SHEARS",
+      "Kind": "Curse",
+      "Title": "松动羊毛剪",
+      "Description": "拾起时，从你的牌组中移除{Cards}张牌，并受到{Damage}点伤害。",
+      "Note": null
+    },
+    {
+      "RelicId": "LEAFY_POULTICE",
+      "Kind": "Curse",
+      "Title": "树叶药膏",
+      "Description": "拾起时，变化你的1张打击和1张防御，然后失去{MaxHp}点最大生命。",
+      "Note": null
+    },
+    {
+      "RelicId": "SILVER_CRUCIBLE",
+      "Kind": "Curse",
+      "Title": "白银熔炉",
+      "Description": "你遇到的前{Cards}组卡牌奖励将是被升级过的。你打开的第一个宝箱将是空的",
+      "Note": "灌能"
+    },
+    {
+      "RelicId": "CURSED_PEARL",
+      "Kind": "Curse",
+      "Title": "诅咒珍珠",
+      "Description": "拾起时，获得一张贪婪，获得{Gold}金币。",
+      "Note": null
+    }
+  ],
+  "Cards": [
+    {
+      "Id": "ABRASIVE",
+      "Name": "磨蚀"
+    },
+    {
+      "Id": "ACCELERANT",
+      "Name": "触媒"
+    },
+    {
+      "Id": "ACCURACY",
+      "Name": "精准"
+    },
+    {
+      "Id": "ACROBATICS",
+      "Name": "杂技"
+    },
+    {
+      "Id": "ADAPTIVE_STRIKE",
+      "Name": "适应打击"
+    },
+    {
+      "Id": "ADRENALINE",
+      "Name": "肾上腺素"
+    },
+    {
+      "Id": "AFTERIMAGE",
+      "Name": "余像"
+    },
+    {
+      "Id": "AFTERLIFE",
+      "Name": "来生"
+    },
+    {
+      "Id": "AGGRESSION",
+      "Name": "好勇斗狠"
+    },
+    {
+      "Id": "ALCHEMIZE",
+      "Name": "炼制药水"
+    },
+    {
+      "Id": "ALIGNMENT",
+      "Name": "星位序列"
+    },
+    {
+      "Id": "ALL_FOR_ONE",
+      "Name": "万物一心"
+    },
+    {
+      "Id": "ANGER",
+      "Name": "愤怒"
+    },
+    {
+      "Id": "ANOINTED",
+      "Name": "天选"
+    },
+    {
+      "Id": "ANTICIPATE",
+      "Name": "预判"
+    },
+    {
+      "Id": "APOTHEOSIS",
+      "Name": "神化"
+    },
+    {
+      "Id": "APPARITION",
+      "Name": "灵体"
+    },
+    {
+      "Id": "ARMAMENTS",
+      "Name": "武装"
+    },
+    {
+      "Id": "ARSENAL",
+      "Name": "武器库"
+    },
+    {
+      "Id": "ASCENDERS_BANE",
+      "Name": "进阶之灾"
+    },
+    {
+      "Id": "ASHEN_STRIKE",
+      "Name": "灰烬打击"
+    },
+    {
+      "Id": "ASSASSINATE",
+      "Name": "刺杀"
+    },
+    {
+      "Id": "ASTRAL_PULSE",
+      "Name": "星界脉冲"
+    },
+    {
+      "Id": "AUTOMATION",
+      "Name": "自动化"
+    },
+    {
+      "Id": "BACKFLIP",
+      "Name": "后空翻"
+    },
+    {
+      "Id": "BACKSTAB",
+      "Name": "背刺"
+    },
+    {
+      "Id": "BAD_LUCK",
+      "Name": "霉运"
+    },
+    {
+      "Id": "BALL_LIGHTNING",
+      "Name": "球状闪电"
+    },
+    {
+      "Id": "BANSHEES_CRY",
+      "Name": "女妖之嚎"
+    },
+    {
+      "Id": "BARRAGE",
+      "Name": "弹幕齐射"
+    },
+    {
+      "Id": "BARRICADE",
+      "Name": "壁垒"
+    },
+    {
+      "Id": "BASH",
+      "Name": "痛击"
+    },
+    {
+      "Id": "BATTLE_TRANCE",
+      "Name": "战斗专注"
+    },
+    {
+      "Id": "BEACON_OF_HOPE",
+      "Name": "希望灯塔"
+    },
+    {
+      "Id": "BEAM_CELL",
+      "Name": "光束射线"
+    },
+    {
+      "Id": "BEAT_DOWN",
+      "Name": "狠揍"
+    },
+    {
+      "Id": "BEAT_INTO_SHAPE",
+      "Name": "锻打成型"
+    },
+    {
+      "Id": "BECKON",
+      "Name": "呼唤"
+    },
+    {
+      "Id": "BEGONE",
+      "Name": "下去！"
+    },
+    {
+      "Id": "BELIEVE_IN_YOU",
+      "Name": "相信着你"
+    },
+    {
+      "Id": "BIASED_COGNITION",
+      "Name": "偏差认知"
+    },
+    {
+      "Id": "BIG_BANG",
+      "Name": "大爆炸"
+    },
+    {
+      "Id": "BLACK_HOLE",
+      "Name": "黑洞"
+    },
+    {
+      "Id": "BLADE_DANCE",
+      "Name": "刀刃之舞"
+    },
+    {
+      "Id": "BLADE_OF_INK",
+      "Name": "墨之刃"
+    },
+    {
+      "Id": "BLIGHT_STRIKE",
+      "Name": "荒疫打击"
+    },
+    {
+      "Id": "BLOODLETTING",
+      "Name": "放血"
+    },
+    {
+      "Id": "BLOOD_WALL",
+      "Name": "血墙"
+    },
+    {
+      "Id": "BLUDGEON",
+      "Name": "重锤"
+    },
+    {
+      "Id": "BLUR",
+      "Name": "残影"
+    },
+    {
+      "Id": "BODYGUARD",
+      "Name": "护卫"
+    },
+    {
+      "Id": "BODY_SLAM",
+      "Name": "全身撞击"
+    },
+    {
+      "Id": "BOLAS",
+      "Name": "流星锤"
+    },
+    {
+      "Id": "BOMBARDMENT",
+      "Name": "轰击"
+    },
+    {
+      "Id": "BONE_SHARDS",
+      "Name": "碎骨"
+    },
+    {
+      "Id": "BOOST_AWAY",
+      "Name": "高速脱离"
+    },
+    {
+      "Id": "BOOT_SEQUENCE",
+      "Name": "启动流程"
+    },
+    {
+      "Id": "BORROWED_TIME",
+      "Name": "预借时间"
+    },
+    {
+      "Id": "BOUNCING_FLASK",
+      "Name": "弹跳药瓶"
+    },
+    {
+      "Id": "BRAND",
+      "Name": "烙印"
+    },
+    {
+      "Id": "BREAK",
+      "Name": "破击"
+    },
+    {
+      "Id": "BREAKTHROUGH",
+      "Name": "突破"
+    },
+    {
+      "Id": "BRIGHTEST_FLAME",
+      "Name": "至亮之焰"
+    },
+    {
+      "Id": "BUBBLE_BUBBLE",
+      "Name": "咕嘟冒泡"
+    },
+    {
+      "Id": "BUFFER",
+      "Name": "缓冲"
+    },
+    {
+      "Id": "BULK_UP",
+      "Name": "暴涨"
+    },
+    {
+      "Id": "BULLET_TIME",
+      "Name": "子弹时间"
+    },
+    {
+      "Id": "BULLY",
+      "Name": "欺凌"
+    },
+    {
+      "Id": "BULWARK",
+      "Name": "铸墙"
+    },
+    {
+      "Id": "BUNDLE_OF_JOY",
+      "Name": "新生之喜"
+    },
+    {
+      "Id": "BURN",
+      "Name": "灼伤"
+    },
+    {
+      "Id": "BURNING_PACT",
+      "Name": "燃烧契约"
+    },
+    {
+      "Id": "BURST",
+      "Name": "爆发"
+    },
+    {
+      "Id": "BURY",
+      "Name": "埋葬"
+    },
+    {
+      "Id": "BYRDONIS_EGG",
+      "Name": "多尼斯异鸟蛋"
+    },
+    {
+      "Id": "BYRD_SWOOP",
+      "Name": "异鸟扑击"
+    },
+    {
+      "Id": "CALAMITY",
+      "Name": "灾祸"
+    },
+    {
+      "Id": "CALCIFY",
+      "Name": "钙化"
+    },
+    {
+      "Id": "CALCULATED_GAMBLE",
+      "Name": "计算下注"
+    },
+    {
+      "Id": "CALL_OF_THE_VOID",
+      "Name": "虚空之唤"
+    },
+    {
+      "Id": "CALTROPS",
+      "Name": "铁蒺藜"
+    },
+    {
+      "Id": "CAPACITOR",
+      "Name": "扩容"
+    },
+    {
+      "Id": "CAPTURE_SPIRIT",
+      "Name": "捕捉灵魂"
+    },
+    {
+      "Id": "CASCADE",
+      "Name": "倾泻"
+    },
+    {
+      "Id": "CATASTROPHE",
+      "Name": "横祸"
+    },
+    {
+      "Id": "CELESTIAL_MIGHT",
+      "Name": "天穹之力"
+    },
+    {
+      "Id": "CHAOS",
+      "Name": "混沌"
+    },
+    {
+      "Id": "CHARGE",
+      "Name": "冲锋！！"
+    },
+    {
+      "Id": "CHARGE_BATTERY",
+      "Name": "充电"
+    },
+    {
+      "Id": "CHILD_OF_THE_STARS",
+      "Name": "群星之子"
+    },
+    {
+      "Id": "CHILL",
+      "Name": "冰寒"
+    },
+    {
+      "Id": "CHRYSALIS",
+      "Name": "结茧"
+    },
+    {
+      "Id": "CINDER",
+      "Name": "余烬"
+    },
+    {
+      "Id": "CLASH",
+      "Name": "交锋"
+    },
+    {
+      "Id": "CLAW",
+      "Name": "爪击"
+    },
+    {
+      "Id": "CLEANSE",
+      "Name": "洁净"
+    },
+    {
+      "Id": "CLOAK_AND_DAGGER",
+      "Name": "斗篷与匕首"
+    },
+    {
+      "Id": "CLOAK_OF_STARS",
+      "Name": "群星斗篷"
+    },
+    {
+      "Id": "CLUMSY",
+      "Name": "笨拙"
+    },
+    {
+      "Id": "COLD_SNAP",
+      "Name": "寒流"
+    },
+    {
+      "Id": "COLLISION_COURSE",
+      "Name": "碰撞轨迹"
+    },
+    {
+      "Id": "COLOSSUS",
+      "Name": "巨像"
+    },
+    {
+      "Id": "COMET",
+      "Name": "彗星"
+    },
+    {
+      "Id": "COMPACT",
+      "Name": "压缩"
+    },
+    {
+      "Id": "COMPILE_DRIVER",
+      "Name": "编译冲击"
+    },
+    {
+      "Id": "CONFLAGRATION",
+      "Name": "焚烧"
+    },
+    {
+      "Id": "CONQUEROR",
+      "Name": "征服者"
+    },
+    {
+      "Id": "CONSUMING_SHADOW",
+      "Name": "吞噬暗影"
+    },
+    {
+      "Id": "CONVERGENCE",
+      "Name": "汇流"
+    },
+    {
+      "Id": "COOLANT",
+      "Name": "冷却剂"
+    },
+    {
+      "Id": "COOLHEADED",
+      "Name": "冷静头脑"
+    },
+    {
+      "Id": "COORDINATE",
+      "Name": "协同配合"
+    },
+    {
+      "Id": "CORROSIVE_WAVE",
+      "Name": "腐蚀波"
+    },
+    {
+      "Id": "CORRUPTION",
+      "Name": "腐化"
+    },
+    {
+      "Id": "COSMIC_INDIFFERENCE",
+      "Name": "宇宙冷漠"
+    },
+    {
+      "Id": "COUNTDOWN",
+      "Name": "倒数计时"
+    },
+    {
+      "Id": "CRASH_LANDING",
+      "Name": "迫降"
+    },
+    {
+      "Id": "CREATIVE_AI",
+      "Name": "创造性AI"
+    },
+    {
+      "Id": "CRESCENT_SPEAR",
+      "Name": "新月长矛"
+    },
+    {
+      "Id": "CRIMSON_MANTLE",
+      "Name": "绯红披风"
+    },
+    {
+      "Id": "CRUELTY",
+      "Name": "残酷"
+    },
+    {
+      "Id": "CRUSH_UNDER",
+      "Name": "下砸"
+    },
+    {
+      "Id": "CURSE_OF_THE_BELL",
+      "Name": "铃铛的诅咒"
+    },
+    {
+      "Id": "DAGGER_SPRAY",
+      "Name": "匕首雨"
+    },
+    {
+      "Id": "DAGGER_THROW",
+      "Name": "投掷匕首"
+    },
+    {
+      "Id": "DANSE_MACABRE",
+      "Name": "死亡之舞"
+    },
+    {
+      "Id": "DARKNESS",
+      "Name": "漆黑"
+    },
+    {
+      "Id": "DARK_EMBRACE",
+      "Name": "黑暗之拥"
+    },
+    {
+      "Id": "DARK_SHACKLES",
+      "Name": "黑暗镣铐"
+    },
+    {
+      "Id": "DASH",
+      "Name": "冲刺"
+    },
+    {
+      "Id": "DAZED",
+      "Name": "晕眩"
+    },
+    {
+      "Id": "DEADLY_POISON",
+      "Name": "致命毒药"
+    },
+    {
+      "Id": "DEATHBRINGER",
+      "Name": "死亡使者"
+    },
+    {
+      "Id": "DEATHS_DOOR",
+      "Name": "死亡之门"
+    },
+    {
+      "Id": "DEATH_MARCH",
+      "Name": "死亡行军"
+    },
+    {
+      "Id": "DEBILITATE",
+      "Name": "摧残"
+    },
+    {
+      "Id": "DEBRIS",
+      "Name": "碎屑"
+    },
+    {
+      "Id": "DEBT",
+      "Name": "债务"
+    },
+    {
+      "Id": "DECAY",
+      "Name": "腐朽"
+    },
+    {
+      "Id": "DECISIONS_DECISIONS",
+      "Name": "抉择，抉择"
+    },
+    {
+      "Id": "DEFEND_DEFECT",
+      "Name": "防御"
+    },
+    {
+      "Id": "DEFEND_IRONCLAD",
+      "Name": "防御"
+    },
+    {
+      "Id": "DEFEND_NECROBINDER",
+      "Name": "防御"
+    },
+    {
+      "Id": "DEFEND_REGENT",
+      "Name": "防御"
+    },
+    {
+      "Id": "DEFEND_SILENT",
+      "Name": "防御"
+    },
+    {
+      "Id": "DEFILE",
+      "Name": "玷污"
+    },
+    {
+      "Id": "DEFLECT",
+      "Name": "偏折"
+    },
+    {
+      "Id": "DEFRAGMENT",
+      "Name": "碎片整理"
+    },
+    {
+      "Id": "DEFY",
+      "Name": "违逆"
+    },
+    {
+      "Id": "DELAY",
+      "Name": "拖延"
+    },
+    {
+      "Id": "DEMESNE",
+      "Name": "领域"
+    },
+    {
+      "Id": "DEMONIC_SHIELD",
+      "Name": "恶魔护盾"
+    },
+    {
+      "Id": "DEMON_FORM",
+      "Name": "恶魔形态"
+    },
+    {
+      "Id": "DEPRECATED_CARD",
+      "Name": "弃用卡牌"
+    },
+    {
+      "Id": "DESPAIR",
+      "Name": "绝望"
+    },
+    {
+      "Id": "DEVASTATE",
+      "Name": "葬送"
+    },
+    {
+      "Id": "DEVOUR_LIFE",
+      "Name": "吞噬生命"
+    },
+    {
+      "Id": "DIRGE",
+      "Name": "挽歌"
+    },
+    {
+      "Id": "DISCOVERY",
+      "Name": "发现"
+    },
+    {
+      "Id": "DISINTEGRATION",
+      "Name": "瓦解"
+    },
+    {
+      "Id": "DISMANTLE",
+      "Name": "拆卸"
+    },
+    {
+      "Id": "DISTRACTION",
+      "Name": "声东击西"
+    },
+    {
+      "Id": "DODGE_AND_ROLL",
+      "Name": "闪躲翻滚"
+    },
+    {
+      "Id": "DOMINATE",
+      "Name": "主宰"
+    },
+    {
+      "Id": "DOUBLE_ENERGY",
+      "Name": "双倍能量"
+    },
+    {
+      "Id": "DOUBT",
+      "Name": "疑虑"
+    },
+    {
+      "Id": "DRAIN_POWER",
+      "Name": "能量汲取"
+    },
+    {
+      "Id": "DRAMATIC_ENTRANCE",
+      "Name": "闪亮登场"
+    },
+    {
+      "Id": "DREDGE",
+      "Name": "清淤"
+    },
+    {
+      "Id": "DRUM_OF_BATTLE",
+      "Name": "战鼓"
+    },
+    {
+      "Id": "DUALCAST",
+      "Name": "双重释放"
+    },
+    {
+      "Id": "DUAL_WIELD",
+      "Name": "双持"
+    },
+    {
+      "Id": "DYING_STAR",
+      "Name": "星灭"
+    },
+    {
+      "Id": "ECHOING_SLASH",
+      "Name": "回响斩击"
+    },
+    {
+      "Id": "ECHO_FORM",
+      "Name": "回响形态"
+    },
+    {
+      "Id": "EIDOLON",
+      "Name": "幻景"
+    },
+    {
+      "Id": "END_OF_DAYS",
+      "Name": "末日降临"
+    },
+    {
+      "Id": "ENERGY_SURGE",
+      "Name": "能量涌动"
+    },
+    {
+      "Id": "ENFEEBLING_TOUCH",
+      "Name": "弱化之触"
+    },
+    {
+      "Id": "ENLIGHTENMENT",
+      "Name": "开悟"
+    },
+    {
+      "Id": "ENTHRALLED",
+      "Name": "执迷"
+    },
+    {
+      "Id": "ENTRENCH",
+      "Name": "巩固"
+    },
+    {
+      "Id": "ENTROPY",
+      "Name": "熵"
+    },
+    {
+      "Id": "ENVENOM",
+      "Name": "涂毒"
+    },
+    {
+      "Id": "EQUILIBRIUM",
+      "Name": "均衡"
+    },
+    {
+      "Id": "ERADICATE",
+      "Name": "根除"
+    },
+    {
+      "Id": "ESCAPE_PLAN",
+      "Name": "逃脱计划"
+    },
+    {
+      "Id": "ETERNAL_ARMOR",
+      "Name": "永恒铠甲"
+    },
+    {
+      "Id": "EVIL_EYE",
+      "Name": "邪眼"
+    },
+    {
+      "Id": "EXPECT_A_FIGHT",
+      "Name": "跃跃欲试"
+    },
+    {
+      "Id": "EXPERTISE",
+      "Name": "独门技术"
+    },
+    {
+      "Id": "EXPOSE",
+      "Name": "暴露"
+    },
+    {
+      "Id": "EXTERMINATE",
+      "Name": "杀灭"
+    },
+    {
+      "Id": "FALLING_STAR",
+      "Name": "陨星"
+    },
+    {
+      "Id": "FAN_OF_KNIVES",
+      "Name": "刀扇"
+    },
+    {
+      "Id": "FASTEN",
+      "Name": "勒紧"
+    },
+    {
+      "Id": "FEAR",
+      "Name": "恐惧"
+    },
+    {
+      "Id": "FEED",
+      "Name": "狂宴"
+    },
+    {
+      "Id": "FEEDING_FRENZY",
+      "Name": "疯狂进食"
+    },
+    {
+      "Id": "FEEL_NO_PAIN",
+      "Name": "无惧疼痛"
+    },
+    {
+      "Id": "FERAL",
+      "Name": "野性"
+    },
+    {
+      "Id": "FETCH",
+      "Name": "取回"
+    },
+    {
+      "Id": "FIEND_FIRE",
+      "Name": "恶魔之焰"
+    },
+    {
+      "Id": "FIGHT_ME",
+      "Name": "与我一战！"
+    },
+    {
+      "Id": "FIGHT_THROUGH",
+      "Name": "强撑"
+    },
+    {
+      "Id": "FINESSE",
+      "Name": "妙计"
+    },
+    {
+      "Id": "FINISHER",
+      "Name": "终结技"
+    },
+    {
+      "Id": "FISTICUFFS",
+      "Name": "拳斗"
+    },
+    {
+      "Id": "FLAK_CANNON",
+      "Name": "散射炮"
+    },
+    {
+      "Id": "FLAME_BARRIER",
+      "Name": "火焰屏障"
+    },
+    {
+      "Id": "FLAME_IN_THE_DARK",
+      "Name": "暗中之火"
+    },
+    {
+      "Id": "FLANKING",
+      "Name": "夹击"
+    },
+    {
+      "Id": "FLASH_OF_STEEL",
+      "Name": "亮剑"
+    },
+    {
+      "Id": "FLATTEN",
+      "Name": "重压"
+    },
+    {
+      "Id": "FLECHETTES",
+      "Name": "飞镖"
+    },
+    {
+      "Id": "FLICK_FLACK",
+      "Name": "翻越撑击"
+    },
+    {
+      "Id": "FOCUSED_STRIKE",
+      "Name": "集中打击"
+    },
+    {
+      "Id": "FOLLOW_THROUGH",
+      "Name": "跟进"
+    },
+    {
+      "Id": "FOLLY",
+      "Name": "愚行"
+    },
+    {
+      "Id": "FOOTWORK",
+      "Name": "灵动步法"
+    },
+    {
+      "Id": "FORBIDDEN_GRIMOIRE",
+      "Name": "禁忌魔典"
+    },
+    {
+      "Id": "FOREGONE_CONCLUSION",
+      "Name": "既定事项"
+    },
+    {
+      "Id": "FORGOTTEN_RITUAL",
+      "Name": "被遗忘的仪式"
+    },
+    {
+      "Id": "FRANTIC_ESCAPE",
+      "Name": "狂乱逃离"
+    },
+    {
+      "Id": "FRIENDSHIP",
+      "Name": "友谊"
+    },
+    {
+      "Id": "FTL",
+      "Name": "超越光速"
+    },
+    {
+      "Id": "FUEL",
+      "Name": "燃料"
+    },
+    {
+      "Id": "FURNACE",
+      "Name": "熔炉"
+    },
+    {
+      "Id": "FUSION",
+      "Name": "聚变"
+    },
+    {
+      "Id": "GAMMA_BLAST",
+      "Name": "伽马爆破"
+    },
+    {
+      "Id": "GANG_UP",
+      "Name": "群起攻之"
+    },
+    {
+      "Id": "GATHER_LIGHT",
+      "Name": "收集光辉"
+    },
+    {
+      "Id": "GENESIS",
+      "Name": "创世纪"
+    },
+    {
+      "Id": "GENETIC_ALGORITHM",
+      "Name": "遗传算法"
+    },
+    {
+      "Id": "GHOST_EATER",
+      "Name": "噬魂者"
+    },
+    {
+      "Id": "GIANT_ROCK",
+      "Name": "巨石"
+    },
+    {
+      "Id": "GLACIER",
+      "Name": "冰川"
+    },
+    {
+      "Id": "GLASSWORK",
+      "Name": "玻璃工艺"
+    },
+    {
+      "Id": "GLIMMER",
+      "Name": "微光"
+    },
+    {
+      "Id": "GLIMPSE_BEYOND",
+      "Name": "彼岸一瞥"
+    },
+    {
+      "Id": "GLITTERSTREAM",
+      "Name": "流光溢彩"
+    },
+    {
+      "Id": "GLOW",
+      "Name": "辉光"
+    },
+    {
+      "Id": "GOLD_AXE",
+      "Name": "金斧"
+    },
+    {
+      "Id": "GOOD_INSTINCTS",
+      "Name": "优秀直觉"
+    },
+    {
+      "Id": "GO_FOR_THE_EYES",
+      "Name": "眼部攻击"
+    },
+    {
+      "Id": "GRAND_FINALE",
+      "Name": "华丽收场"
+    },
+    {
+      "Id": "GRAPPLE",
+      "Name": "擒拿"
+    },
+    {
+      "Id": "GRAVEBLAST",
+      "Name": "坟冢爆射"
+    },
+    {
+      "Id": "GRAVE_WARDEN",
+      "Name": "守墓人"
+    },
+    {
+      "Id": "GREED",
+      "Name": "贪婪"
+    },
+    {
+      "Id": "GUARDS",
+      "Name": "护驾！！！"
+    },
+    {
+      "Id": "GUIDING_STAR",
+      "Name": "引导之星"
+    },
+    {
+      "Id": "GUILTY",
+      "Name": "愧疚"
+    },
+    {
+      "Id": "GUNK_UP",
+      "Name": "污秽攻击"
+    },
+    {
+      "Id": "HAILSTORM",
+      "Name": "冰雹风暴"
+    },
+    {
+      "Id": "HAMMER_TIME",
+      "Name": "锤子时间"
+    },
+    {
+      "Id": "HAND_OF_GREED",
+      "Name": "贪婪之手"
+    },
+    {
+      "Id": "HAND_TRICK",
+      "Name": "手上技法"
+    },
+    {
+      "Id": "HANG",
+      "Name": "吊杀"
+    },
+    {
+      "Id": "HAUNT",
+      "Name": "纠缠"
+    },
+    {
+      "Id": "HAVOC",
+      "Name": "破灭"
+    },
+    {
+      "Id": "HAZE",
+      "Name": "迷雾"
+    },
+    {
+      "Id": "HEADBUTT",
+      "Name": "头槌"
+    },
+    {
+      "Id": "HEAVENLY_DRILL",
+      "Name": "天际钻头"
+    },
+    {
+      "Id": "HEGEMONY",
+      "Name": "霸权"
+    },
+    {
+      "Id": "HEIRLOOM_HAMMER",
+      "Name": "传承之锤"
+    },
+    {
+      "Id": "HELIX_DRILL",
+      "Name": "螺旋钻击"
+    },
+    {
+      "Id": "HELLO_WORLD",
+      "Name": "你好世界"
+    },
+    {
+      "Id": "HELLRAISER",
+      "Name": "地狱狂徒"
+    },
+    {
+      "Id": "HEMOKINESIS",
+      "Name": "御血术"
+    },
+    {
+      "Id": "HIDDEN_CACHE",
+      "Name": "隐秘藏品"
+    },
+    {
+      "Id": "HIDDEN_DAGGERS",
+      "Name": "隐秘匕首"
+    },
+    {
+      "Id": "HIDDEN_GEM",
+      "Name": "未掘宝石"
+    },
+    {
+      "Id": "HIGH_FIVE",
+      "Name": "击掌"
+    },
+    {
+      "Id": "HOLOGRAM",
+      "Name": "全息影像"
+    },
+    {
+      "Id": "HOTFIX",
+      "Name": "热修复"
+    },
+    {
+      "Id": "HOWL_FROM_BEYOND",
+      "Name": "彼岸咆哮"
+    },
+    {
+      "Id": "HUDDLE_UP",
+      "Name": "抱团"
+    },
+    {
+      "Id": "HYPERBEAM",
+      "Name": "超能光束"
+    },
+    {
+      "Id": "ICE_LANCE",
+      "Name": "冰之长枪"
+    },
+    {
+      "Id": "IGNITION",
+      "Name": "引火"
+    },
+    {
+      "Id": "IMMORTALITY",
+      "Name": "不朽"
+    },
+    {
+      "Id": "IMPALE",
+      "Name": "扎穿"
+    },
+    {
+      "Id": "IMPATIENCE",
+      "Name": "急躁"
+    },
+    {
+      "Id": "IMPERVIOUS",
+      "Name": "岿然不动"
+    },
+    {
+      "Id": "INFECTION",
+      "Name": "感染"
+    },
+    {
+      "Id": "INFERNAL_BLADE",
+      "Name": "地狱之刃"
+    },
+    {
+      "Id": "INFERNO",
+      "Name": "狱火"
+    },
+    {
+      "Id": "INFINITE_BLADES",
+      "Name": "无尽刀刃"
+    },
+    {
+      "Id": "INFLAME",
+      "Name": "燃烧"
+    },
+    {
+      "Id": "INJURY",
+      "Name": "受伤"
+    },
+    {
+      "Id": "INTERCEPT",
+      "Name": "拦截"
+    },
+    {
+      "Id": "INVOKE",
+      "Name": "唤起"
+    },
+    {
+      "Id": "IRON_WAVE",
+      "Name": "铁斩波"
+    },
+    {
+      "Id": "ITERATION",
+      "Name": "迭代"
+    },
+    {
+      "Id": "I_AM_INVINCIBLE",
+      "Name": "所向无敌"
+    },
+    {
+      "Id": "JACKPOT",
+      "Name": "大奖"
+    },
+    {
+      "Id": "JACK_OF_ALL_TRADES",
+      "Name": "花样百出"
+    },
+    {
+      "Id": "JUGGERNAUT",
+      "Name": "势不可当"
+    },
+    {
+      "Id": "JUGGLING",
+      "Name": "杂耍"
+    },
+    {
+      "Id": "KINGLY_KICK",
+      "Name": "王者之踢"
+    },
+    {
+      "Id": "KINGLY_PUNCH",
+      "Name": "王者之拳"
+    },
+    {
+      "Id": "KNIFE_TRAP",
+      "Name": "刀刃陷阱"
+    },
+    {
+      "Id": "KNOCKDOWN",
+      "Name": "击倒"
+    },
+    {
+      "Id": "KNOCKOUT_BLOW",
+      "Name": "决胜一击"
+    },
+    {
+      "Id": "KNOW_THY_PLACE",
+      "Name": "何人僭越"
+    },
+    {
+      "Id": "LANTERN_KEY",
+      "Name": "灯火钥匙"
+    },
+    {
+      "Id": "LARGESSE",
+      "Name": "慷慨捐助"
+    },
+    {
+      "Id": "LEADING_STRIKE",
+      "Name": "先制打击"
+    },
+    {
+      "Id": "LEAP",
+      "Name": "飞跃"
+    },
+    {
+      "Id": "LEGION_OF_BONE",
+      "Name": "骸骨军团"
+    },
+    {
+      "Id": "LEG_SWEEP",
+      "Name": "扫腿"
+    },
+    {
+      "Id": "LETHALITY",
+      "Name": "致死性"
+    },
+    {
+      "Id": "LIFT",
+      "Name": "托举"
+    },
+    {
+      "Id": "LIGHTNING_ROD",
+      "Name": "引雷针"
+    },
+    {
+      "Id": "LOOP",
+      "Name": "循环"
+    },
+    {
+      "Id": "LUMINESCE",
+      "Name": "冷光"
+    },
+    {
+      "Id": "LUNAR_BLAST",
+      "Name": "月面射击"
+    },
+    {
+      "Id": "MACHINE_LEARNING",
+      "Name": "机器学习"
+    },
+    {
+      "Id": "MAD_SCIENCE",
+      "Name": "疯狂科学"
+    },
+    {
+      "Id": "MAKE_IT_SO",
+      "Name": "如此甚好"
+    },
+    {
+      "Id": "MALAISE",
+      "Name": "萎靡"
+    },
+    {
+      "Id": "MANGLE",
+      "Name": "凌虐"
+    },
+    {
+      "Id": "MANIFEST_AUTHORITY",
+      "Name": "君权自授"
+    },
+    {
+      "Id": "MASTER_OF_STRATEGY",
+      "Name": "战略大师"
+    },
+    {
+      "Id": "MASTER_PLANNER",
+      "Name": "谋划专家"
+    },
+    {
+      "Id": "MAUL",
+      "Name": "撕咬"
+    },
+    {
+      "Id": "MAYHEM",
+      "Name": "乱战"
+    },
+    {
+      "Id": "MELANCHOLY",
+      "Name": "忧郁"
+    },
+    {
+      "Id": "MEMENTO_MORI",
+      "Name": "铭记死亡"
+    },
+    {
+      "Id": "METAMORPHOSIS",
+      "Name": "羽化"
+    },
+    {
+      "Id": "METEOR_SHOWER",
+      "Name": "流星雨"
+    },
+    {
+      "Id": "METEOR_STRIKE",
+      "Name": "陨石打击"
+    },
+    {
+      "Id": "MIMIC",
+      "Name": "拟态"
+    },
+    {
+      "Id": "MIND_BLAST",
+      "Name": "心灵震慑"
+    },
+    {
+      "Id": "MIND_ROT",
+      "Name": "心灵腐化"
+    },
+    {
+      "Id": "MINION_DIVE_BOMB",
+      "Name": "仆从俯冲"
+    },
+    {
+      "Id": "MINION_SACRIFICE",
+      "Name": "仆从捐躯"
+    },
+    {
+      "Id": "MINION_STRIKE",
+      "Name": "仆从打击"
+    },
+    {
+      "Id": "MIRAGE",
+      "Name": "蜃景"
+    },
+    {
+      "Id": "MISERY",
+      "Name": "苦难"
+    },
+    {
+      "Id": "MOCK_ATTACK_CARD",
+      "Name": "模拟攻击牌"
+    },
+    {
+      "Id": "MOCK_CURSE_CARD",
+      "Name": "模拟诅咒牌"
+    },
+    {
+      "Id": "MOCK_POWER_CARD",
+      "Name": "模拟能力牌"
+    },
+    {
+      "Id": "MOCK_QUEST_CARD",
+      "Name": "临时任务牌"
+    },
+    {
+      "Id": "MOCK_SKILL_CARD",
+      "Name": "模拟技能牌"
+    },
+    {
+      "Id": "MOCK_STATUS_CARD",
+      "Name": "模拟状态牌"
+    },
+    {
+      "Id": "MODDED",
+      "Name": "模组改造"
+    },
+    {
+      "Id": "MOLTEN_FIST",
+      "Name": "熔融之拳"
+    },
+    {
+      "Id": "MOMENTUM_STRIKE",
+      "Name": "趁势打击"
+    },
+    {
+      "Id": "MONARCHS_GAZE",
+      "Name": "王之凝视"
+    },
+    {
+      "Id": "MONOLOGUE",
+      "Name": "独白"
+    },
+    {
+      "Id": "MULTI_CAST",
+      "Name": "多重释放"
+    },
+    {
+      "Id": "MURDER",
+      "Name": "谋杀"
+    },
+    {
+      "Id": "NECRO_MASTERY",
+      "Name": "亡灵精通"
+    },
+    {
+      "Id": "NEGATIVE_PULSE",
+      "Name": "负能量脉冲"
+    },
+    {
+      "Id": "NEOWS_FURY",
+      "Name": "涅奥之怒"
+    },
+    {
+      "Id": "NEUROSURGE",
+      "Name": "精神过载"
+    },
+    {
+      "Id": "NEUTRALIZE",
+      "Name": "中和"
+    },
+    {
+      "Id": "NEUTRON_AEGIS",
+      "Name": "中子护盾"
+    },
+    {
+      "Id": "NIGHTMARE",
+      "Name": "夜魇"
+    },
+    {
+      "Id": "NORMALITY",
+      "Name": "凡庸"
+    },
+    {
+      "Id": "NOSTALGIA",
+      "Name": "怀旧"
+    },
+    {
+      "Id": "NOXIOUS_FUMES",
+      "Name": "毒雾"
+    },
+    {
+      "Id": "NO_ESCAPE",
+      "Name": "无处可逃"
+    },
+    {
+      "Id": "NULL",
+      "Name": "空无"
+    },
+    {
+      "Id": "OBLIVION",
+      "Name": "湮灭"
+    },
+    {
+      "Id": "OFFERING",
+      "Name": "祭品"
+    },
+    {
+      "Id": "OFF_BY_ONE",
+      "Name": "一线之差"
+    },
+    {
+      "Id": "OMNISLICE",
+      "Name": "万向斩"
+    },
+    {
+      "Id": "ONE_TWO_PUNCH",
+      "Name": "连环拳"
+    },
+    {
+      "Id": "ORBIT",
+      "Name": "环绕轨道"
+    },
+    {
+      "Id": "OUTBREAK",
+      "Name": "毒性爆发"
+    },
+    {
+      "Id": "OUTMANEUVER",
+      "Name": "抢占先机"
+    },
+    {
+      "Id": "OVERCLOCK",
+      "Name": "超频"
+    },
+    {
+      "Id": "PACTS_END",
+      "Name": "契约终结"
+    },
+    {
+      "Id": "PAELS_STRIKE",
+      "Name": "佩尔的打击"
+    },
+    {
+      "Id": "PAGESTORM",
+      "Name": "书页风暴"
+    },
+    {
+      "Id": "PALE_BLUE_DOT",
+      "Name": "暗淡蓝点"
+    },
+    {
+      "Id": "PANACHE",
+      "Name": "神气制胜"
+    },
+    {
+      "Id": "PANIC_BUTTON",
+      "Name": "应急按钮"
+    },
+    {
+      "Id": "PARRY",
+      "Name": "招架"
+    },
+    {
+      "Id": "PARSE",
+      "Name": "领会"
+    },
+    {
+      "Id": "PARTICLE_WALL",
+      "Name": "粒子墙"
+    },
+    {
+      "Id": "PATTER",
+      "Name": "星星点点"
+    },
+    {
+      "Id": "PECK",
+      "Name": "啄击"
+    },
+    {
+      "Id": "PERFECTED_STRIKE",
+      "Name": "完美打击"
+    },
+    {
+      "Id": "PHANTOM_BLADES",
+      "Name": "幻影之刃"
+    },
+    {
+      "Id": "PHOTON_CUT",
+      "Name": "光子切割"
+    },
+    {
+      "Id": "PIERCING_WAIL",
+      "Name": "尖啸"
+    },
+    {
+      "Id": "PILLAGE",
+      "Name": "劫掠"
+    },
+    {
+      "Id": "PILLAR_OF_CREATION",
+      "Name": "创世之柱"
+    },
+    {
+      "Id": "PINPOINT",
+      "Name": "精密瞄准"
+    },
+    {
+      "Id": "PITY",
+      "Name": "怜悯"
+    },
+    {
+      "Id": "POISONED_STAB",
+      "Name": "带毒刺击"
+    },
+    {
+      "Id": "POKE",
+      "Name": "戳击"
+    },
+    {
+      "Id": "POMMEL_STRIKE",
+      "Name": "剑柄打击"
+    },
+    {
+      "Id": "POOR_SLEEP",
+      "Name": "睡眠不佳"
+    },
+    {
+      "Id": "POUNCE",
+      "Name": "猛扑"
+    },
+    {
+      "Id": "PRECISE_CUT",
+      "Name": "精确切击"
+    },
+    {
+      "Id": "PREDATOR",
+      "Name": "猎杀者"
+    },
+    {
+      "Id": "PREPARED",
+      "Name": "早有准备"
+    },
+    {
+      "Id": "PREP_TIME",
+      "Name": "准备时间"
+    },
+    {
+      "Id": "PRIMAL_FORCE",
+      "Name": "原始力量"
+    },
+    {
+      "Id": "PRODUCTION",
+      "Name": "生产制造"
+    },
+    {
+      "Id": "PROLONG",
+      "Name": "延伸"
+    },
+    {
+      "Id": "PROPHESIZE",
+      "Name": "预言"
+    },
+    {
+      "Id": "PROTECTOR",
+      "Name": "守护者"
+    },
+    {
+      "Id": "PROWESS",
+      "Name": "非凡技艺"
+    },
+    {
+      "Id": "PULL_AGGRO",
+      "Name": "吸引仇恨"
+    },
+    {
+      "Id": "PULL_FROM_BELOW",
+      "Name": "亡魂牵引"
+    },
+    {
+      "Id": "PURITY",
+      "Name": "净化"
+    },
+    {
+      "Id": "PUTREFY",
+      "Name": "腐败"
+    },
+    {
+      "Id": "PYRE",
+      "Name": "薪火之源"
+    },
+    {
+      "Id": "QUADCAST",
+      "Name": "四重释放"
+    },
+    {
+      "Id": "QUASAR",
+      "Name": "类星体"
+    },
+    {
+      "Id": "QUICK_SLASH",
+      "Name": "快斩"
+    },
+    {
+      "Id": "RADIATE",
+      "Name": "辐射"
+    },
+    {
+      "Id": "RAGE",
+      "Name": "狂怒"
+    },
+    {
+      "Id": "RAINBOW",
+      "Name": "彩虹"
+    },
+    {
+      "Id": "RALLY",
+      "Name": "集结"
+    },
+    {
+      "Id": "RAMPAGE",
+      "Name": "暴走"
+    },
+    {
+      "Id": "RATTLE",
+      "Name": "猛晃"
+    },
+    {
+      "Id": "REANIMATE",
+      "Name": "死者苏生"
+    },
+    {
+      "Id": "REAP",
+      "Name": "收割"
+    },
+    {
+      "Id": "REAPER_FORM",
+      "Name": "死神形态"
+    },
+    {
+      "Id": "REAVE",
+      "Name": "剥夺"
+    },
+    {
+      "Id": "REBOOT",
+      "Name": "重启"
+    },
+    {
+      "Id": "REBOUND",
+      "Name": "弹回"
+    },
+    {
+      "Id": "REFINE_BLADE",
+      "Name": "淬炼刀刃"
+    },
+    {
+      "Id": "REFLECT",
+      "Name": "倒映"
+    },
+    {
+      "Id": "REFLEX",
+      "Name": "本能反应"
+    },
+    {
+      "Id": "REFRACT",
+      "Name": "折射"
+    },
+    {
+      "Id": "REGRET",
+      "Name": "悔恨"
+    },
+    {
+      "Id": "RELAX",
+      "Name": "放松"
+    },
+    {
+      "Id": "REND",
+      "Name": "撕碎"
+    },
+    {
+      "Id": "RESERVES",
+      "Name": "储备"
+    },
+    {
+      "Id": "RESONANCE",
+      "Name": "共鸣"
+    },
+    {
+      "Id": "RESTLESSNESS",
+      "Name": "心神不宁"
+    },
+    {
+      "Id": "RICOCHET",
+      "Name": "连续反弹"
+    },
+    {
+      "Id": "RIGHT_HAND_HAND",
+      "Name": "得力助手"
+    },
+    {
+      "Id": "RIP_AND_TEAR",
+      "Name": "狂乱撕扯"
+    },
+    {
+      "Id": "ROCKET_PUNCH",
+      "Name": "火箭飞拳"
+    },
+    {
+      "Id": "ROLLING_BOULDER",
+      "Name": "滚石"
+    },
+    {
+      "Id": "ROYALTIES",
+      "Name": "王国资产"
+    },
+    {
+      "Id": "ROYAL_GAMBLE",
+      "Name": "胜券在王"
+    },
+    {
+      "Id": "RUPTURE",
+      "Name": "撕裂"
+    },
+    {
+      "Id": "SACRIFICE",
+      "Name": "牺牲"
+    },
+    {
+      "Id": "SALVO",
+      "Name": "箭雨"
+    },
+    {
+      "Id": "SCAVENGE",
+      "Name": "再利用"
+    },
+    {
+      "Id": "SCOURGE",
+      "Name": "鞭打"
+    },
+    {
+      "Id": "SCRAPE",
+      "Name": "刮削"
+    },
+    {
+      "Id": "SCRAWL",
+      "Name": "潦草急就"
+    },
+    {
+      "Id": "SCULPTING_STRIKE",
+      "Name": "雕琢打击"
+    },
+    {
+      "Id": "SEANCE",
+      "Name": "降灵"
+    },
+    {
+      "Id": "SECOND_WIND",
+      "Name": "重振精神"
+    },
+    {
+      "Id": "SECRET_TECHNIQUE",
+      "Name": "秘密技法"
+    },
+    {
+      "Id": "SECRET_WEAPON",
+      "Name": "秘密武器"
+    },
+    {
+      "Id": "SEEKER_STRIKE",
+      "Name": "探寻打击"
+    },
+    {
+      "Id": "SEEKING_EDGE",
+      "Name": "追踪之刃"
+    },
+    {
+      "Id": "SENTRY_MODE",
+      "Name": "哨卫模式"
+    },
+    {
+      "Id": "SERPENT_FORM",
+      "Name": "群蛇形态"
+    },
+    {
+      "Id": "SETUP_STRIKE",
+      "Name": "预备打击"
+    },
+    {
+      "Id": "SEVEN_STARS",
+      "Name": "七星"
+    },
+    {
+      "Id": "SEVERANCE",
+      "Name": "切断"
+    },
+    {
+      "Id": "SHADOWMELD",
+      "Name": "融入暗影"
+    },
+    {
+      "Id": "SHADOW_SHIELD",
+      "Name": "暗影之盾"
+    },
+    {
+      "Id": "SHADOW_STEP",
+      "Name": "暗影步"
+    },
+    {
+      "Id": "SHAME",
+      "Name": "羞耻"
+    },
+    {
+      "Id": "SHARED_FATE",
+      "Name": "命运同担"
+    },
+    {
+      "Id": "SHARP_EDGE",
+      "Name": "锋利边缘"
+    },
+    {
+      "Id": "SHATTER",
+      "Name": "打碎"
+    },
+    {
+      "Id": "SHINING_STRIKE",
+      "Name": "明耀打击"
+    },
+    {
+      "Id": "SHINY_STRIKE",
+      "Name": "闪亮打击"
+    },
+    {
+      "Id": "SHIV",
+      "Name": "小刀"
+    },
+    {
+      "Id": "SHOCKWAVE",
+      "Name": "震荡波"
+    },
+    {
+      "Id": "SHROUD",
+      "Name": "厄运之衣"
+    },
+    {
+      "Id": "SHRUG_IT_OFF",
+      "Name": "耸肩无视"
+    },
+    {
+      "Id": "SIC_EM",
+      "Name": "紧追不放"
+    },
+    {
+      "Id": "SIGNAL_BOOST",
+      "Name": "信号增强"
+    },
+    {
+      "Id": "SKEWER",
+      "Name": "串刺"
+    },
+    {
+      "Id": "SKIM",
+      "Name": "快速检索"
+    },
+    {
+      "Id": "SLEIGHT_OF_FLESH",
+      "Name": "血肉戏法"
+    },
+    {
+      "Id": "SLICE",
+      "Name": "切割"
+    },
+    {
+      "Id": "SLIMED",
+      "Name": "黏液"
+    },
+    {
+      "Id": "SLOTH",
+      "Name": "懒惰"
+    },
+    {
+      "Id": "SMOKESTACK",
+      "Name": "烟囱"
+    },
+    {
+      "Id": "SNAKEBITE",
+      "Name": "蛇咬"
+    },
+    {
+      "Id": "SNAP",
+      "Name": "响指"
+    },
+    {
+      "Id": "SNEAKY",
+      "Name": "鬼祟"
+    },
+    {
+      "Id": "SOLAR_STRIKE",
+      "Name": "太阳打击"
+    },
+    {
+      "Id": "SOOT",
+      "Name": "煤灰"
+    },
+    {
+      "Id": "SOUL",
+      "Name": "灵魂"
+    },
+    {
+      "Id": "SOUL_STORM",
+      "Name": "灵魂风暴"
+    },
+    {
+      "Id": "SOVEREIGN_BLADE",
+      "Name": "君王之剑"
+    },
+    {
+      "Id": "SOW",
+      "Name": "播种"
+    },
+    {
+      "Id": "SPECTRUM_SHIFT",
+      "Name": "光谱偏移"
+    },
+    {
+      "Id": "SPEEDSTER",
+      "Name": "速行者"
+    },
+    {
+      "Id": "SPIKED",
+      "Name": "扎刺"
+    },
+    {
+      "Id": "SPINNER",
+      "Name": "旋转工艺"
+    },
+    {
+      "Id": "SPIRIT_OF_ASH",
+      "Name": "灰烬之灵"
+    },
+    {
+      "Id": "SPITE",
+      "Name": "怨恨"
+    },
+    {
+      "Id": "SPLASH",
+      "Name": "飞溅"
+    },
+    {
+      "Id": "SPOILS_MAP",
+      "Name": "藏宝图"
+    },
+    {
+      "Id": "SPOILS_OF_BATTLE",
+      "Name": "战利品"
+    },
+    {
+      "Id": "SPORE_MIND",
+      "Name": "孢子心灵"
+    },
+    {
+      "Id": "SPUR",
+      "Name": "增生"
+    },
+    {
+      "Id": "SQUASH",
+      "Name": "压扁"
+    },
+    {
+      "Id": "SQUEEZE",
+      "Name": "榨取"
+    },
+    {
+      "Id": "STACK",
+      "Name": "堆栈"
+    },
+    {
+      "Id": "STAMPEDE",
+      "Name": "惊逃"
+    },
+    {
+      "Id": "STARDUST",
+      "Name": "星尘"
+    },
+    {
+      "Id": "STAR_BLAST",
+      "Name": "星光爆射"
+    },
+    {
+      "Id": "STAR_SHIELD",
+      "Name": "星之盾"
+    },
+    {
+      "Id": "STOKE",
+      "Name": "添柴"
+    },
+    {
+      "Id": "STOMP",
+      "Name": "踩踏"
+    },
+    {
+      "Id": "STONE_ARMOR",
+      "Name": "岩石铠甲"
+    },
+    {
+      "Id": "STORM",
+      "Name": "雷暴"
+    },
+    {
+      "Id": "STORM_OF_STEEL",
+      "Name": "钢铁风暴"
+    },
+    {
+      "Id": "STRANGLE",
+      "Name": "紧勒"
+    },
+    {
+      "Id": "STRATAGEM",
+      "Name": "计策"
+    },
+    {
+      "Id": "STRIKE_DEFECT",
+      "Name": "打击"
+    },
+    {
+      "Id": "STRIKE_IRONCLAD",
+      "Name": "打击"
+    },
+    {
+      "Id": "STRIKE_NECROBINDER",
+      "Name": "打击"
+    },
+    {
+      "Id": "STRIKE_REGENT",
+      "Name": "打击"
+    },
+    {
+      "Id": "STRIKE_SILENT",
+      "Name": "打击"
+    },
+    {
+      "Id": "SUBROUTINE",
+      "Name": "子程序"
+    },
+    {
+      "Id": "SUCKER_PUNCH",
+      "Name": "突然一拳"
+    },
+    {
+      "Id": "SUMMON_FORTH",
+      "Name": "征召上前"
+    },
+    {
+      "Id": "SUNDER",
+      "Name": "分离"
+    },
+    {
+      "Id": "SUPERCRITICAL",
+      "Name": "超临界态"
+    },
+    {
+      "Id": "SUPERMASSIVE",
+      "Name": "超质量体"
+    },
+    {
+      "Id": "SUPPRESS",
+      "Name": "压制"
+    },
+    {
+      "Id": "SURVIVOR",
+      "Name": "生存者"
+    },
+    {
+      "Id": "SWEEPING_BEAM",
+      "Name": "扫荡射线"
+    },
+    {
+      "Id": "SWEEPING_GAZE",
+      "Name": "扫荡凝视"
+    },
+    {
+      "Id": "SWIFT_STRIKE",
+      "Name": "迅捷打击"
+    },
+    {
+      "Id": "SWORD_BOOMERANG",
+      "Name": "飞剑回旋镖"
+    },
+    {
+      "Id": "SWORD_SAGE",
+      "Name": "剑圣"
+    },
+    {
+      "Id": "SYNCHRONIZE",
+      "Name": "同步"
+    },
+    {
+      "Id": "SYNTHESIS",
+      "Name": "人工合成"
+    },
+    {
+      "Id": "TACTICIAN",
+      "Name": "战术大师"
+    },
+    {
+      "Id": "TAG_TEAM",
+      "Name": "双打组合"
+    },
+    {
+      "Id": "TANK",
+      "Name": "肉盾"
+    },
+    {
+      "Id": "TAUNT",
+      "Name": "挑衅"
+    },
+    {
+      "Id": "TEAR_ASUNDER",
+      "Name": "扯碎"
+    },
+    {
+      "Id": "TEMPEST",
+      "Name": "暴风雨"
+    },
+    {
+      "Id": "TERRAFORMING",
+      "Name": "地形改造"
+    },
+    {
+      "Id": "TESLA_COIL",
+      "Name": "特斯拉线圈"
+    },
+    {
+      "Id": "TEZCATARAS_MIGHT",
+      "Name": "特兹卡塔拉之力"
+    },
+    {
+      "Id": "THE_BOMB",
+      "Name": "炸弹"
+    },
+    {
+      "Id": "THE_GAMBIT",
+      "Name": "孤注一掷"
+    },
+    {
+      "Id": "THE_HUNT",
+      "Name": "狩猎"
+    },
+    {
+      "Id": "THE_SCYTHE",
+      "Name": "巨镰"
+    },
+    {
+      "Id": "THE_SEALED_THRONE",
+      "Name": "封印王座"
+    },
+    {
+      "Id": "THE_SMITH",
+      "Name": "铸剑者"
+    },
+    {
+      "Id": "THINKING_AHEAD",
+      "Name": "深谋远虑"
+    },
+    {
+      "Id": "THRASH",
+      "Name": "痛殴"
+    },
+    {
+      "Id": "THRUMMING_HATCHET",
+      "Name": "无休手斧"
+    },
+    {
+      "Id": "THUNDER",
+      "Name": "雷霆"
+    },
+    {
+      "Id": "THUNDERCLAP",
+      "Name": "闪电霹雳"
+    },
+    {
+      "Id": "TIMES_UP",
+      "Name": "大限已至"
+    },
+    {
+      "Id": "TOOLS_OF_THE_TRADE",
+      "Name": "必备工具"
+    },
+    {
+      "Id": "TORIC_TOUGHNESS",
+      "Name": "坚韧之环"
+    },
+    {
+      "Id": "TOXIC",
+      "Name": "毒素"
+    },
+    {
+      "Id": "TRACKING",
+      "Name": "跟踪"
+    },
+    {
+      "Id": "TRAINING_STRIKE",
+      "Name": "训练打击"
+    },
+    {
+      "Id": "TRANSFIGURE",
+      "Name": "重构"
+    },
+    {
+      "Id": "TRASH_TO_TREASURE",
+      "Name": "化废为宝"
+    },
+    {
+      "Id": "TREMBLE",
+      "Name": "战栗"
+    },
+    {
+      "Id": "TRUE_GRIT",
+      "Name": "坚毅"
+    },
+    {
+      "Id": "TURBO",
+      "Name": "内核加速"
+    },
+    {
+      "Id": "TWIN_STRIKE",
+      "Name": "双重打击"
+    },
+    {
+      "Id": "TYRANNY",
+      "Name": "暴政"
+    },
+    {
+      "Id": "ULTIMATE_DEFEND",
+      "Name": "究极防御"
+    },
+    {
+      "Id": "ULTIMATE_STRIKE",
+      "Name": "究极打击"
+    },
+    {
+      "Id": "UNDEATH",
+      "Name": "不死"
+    },
+    {
+      "Id": "UNLEASH",
+      "Name": "出击"
+    },
+    {
+      "Id": "UNMOVABLE",
+      "Name": "坚定不移"
+    },
+    {
+      "Id": "UNRELENTING",
+      "Name": "无情猛攻"
+    },
+    {
+      "Id": "UNTOUCHABLE",
+      "Name": "触不可及"
+    },
+    {
+      "Id": "UPPERCUT",
+      "Name": "上勾拳"
+    },
+    {
+      "Id": "UPROAR",
+      "Name": "骚动"
+    },
+    {
+      "Id": "UP_MY_SLEEVE",
+      "Name": "袖里乾坤"
+    },
+    {
+      "Id": "VEILPIERCER",
+      "Name": "刺破帷幕"
+    },
+    {
+      "Id": "VENERATE",
+      "Name": "崇拜"
+    },
+    {
+      "Id": "VETERAN",
+      "Name": "老兵"
+    },
+    {
+      "Id": "VICIOUS",
+      "Name": "凶恶"
+    },
+    {
+      "Id": "VISIONS_OF_GRANDEUR",
+      "Name": "伟大愿景"
+    },
+    {
+      "Id": "VOID",
+      "Name": "虚空"
+    },
+    {
+      "Id": "VOID_FORM",
+      "Name": "虚空形态"
+    },
+    {
+      "Id": "VOLLEY",
+      "Name": "连射"
+    },
+    {
+      "Id": "VOLTAIC",
+      "Name": "电流相生"
+    },
+    {
+      "Id": "WARP_SPACE",
+      "Name": "折跃空间"
+    },
+    {
+      "Id": "WASTE_AWAY",
+      "Name": "衰朽"
+    },
+    {
+      "Id": "WELL_LAID_PLANS",
+      "Name": "计划妥当"
+    },
+    {
+      "Id": "WHIRLWIND",
+      "Name": "旋风斩"
+    },
+    {
+      "Id": "WHISTLE",
+      "Name": "吹哨"
+    },
+    {
+      "Id": "WHITE_NOISE",
+      "Name": "白噪声"
+    },
+    {
+      "Id": "WISH",
+      "Name": "许愿"
+    },
+    {
+      "Id": "WISP",
+      "Name": "鬼火"
+    },
+    {
+      "Id": "WOUND",
+      "Name": "伤口"
+    },
+    {
+      "Id": "WRAITH_FORM",
+      "Name": "幽魂形态"
+    },
+    {
+      "Id": "WRITHE",
+      "Name": "苦恼"
+    },
+    {
+      "Id": "WROUGHT_IN_WAR",
+      "Name": "战火铸就"
+    },
+    {
+      "Id": "ZAP",
+      "Name": "电击"
+    }
+  ],
+  "Potions": [
+    {
+      "Id": "ASHWATER",
+      "Name": "灰水"
+    },
+    {
+      "Id": "ATTACK_POTION",
+      "Name": "攻击药水"
+    },
+    {
+      "Id": "BEETLE_JUICE",
+      "Name": "甲虫汁"
+    },
+    {
+      "Id": "BLESSING_OF_THE_FORGE",
+      "Name": "熔炉的祝福"
+    },
+    {
+      "Id": "BLOCK_POTION",
+      "Name": "格挡药水"
+    },
+    {
+      "Id": "BLOOD_POTION",
+      "Name": "鲜血药水"
+    },
+    {
+      "Id": "BONE_BREW",
+      "Name": "骨头酿"
+    },
+    {
+      "Id": "BOTTLED_POTENTIAL",
+      "Name": "瓶装潜能"
+    },
+    {
+      "Id": "CLARITY",
+      "Name": "明晰提取物"
+    },
+    {
+      "Id": "COLORLESS_POTION",
+      "Name": "无色药水"
+    },
+    {
+      "Id": "COSMIC_CONCOCTION",
+      "Name": "宇宙药剂"
+    },
+    {
+      "Id": "CUNNING_POTION",
+      "Name": "狡诈药水"
+    },
+    {
+      "Id": "CURE_ALL",
+      "Name": "痊愈药水"
+    },
+    {
+      "Id": "DEPRECATED_POTION",
+      "Name": "废弃药水"
+    },
+    {
+      "Id": "DEXTERITY_POTION",
+      "Name": "敏捷药水"
+    },
+    {
+      "Id": "DISTILLED_CHAOS",
+      "Name": "精炼混沌"
+    },
+    {
+      "Id": "DROPLET_OF_PRECOGNITION",
+      "Name": "预知之滴"
+    },
+    {
+      "Id": "DUPLICATOR",
+      "Name": "复制药水"
+    },
+    {
+      "Id": "ENERGY_POTION",
+      "Name": "能量药水"
+    },
+    {
+      "Id": "ENTROPIC_BREW",
+      "Name": "混沌药水"
+    },
+    {
+      "Id": "ESSENCE_OF_DARKNESS",
+      "Name": "黑暗精华"
+    },
+    {
+      "Id": "EXPLOSIVE_AMPOULE",
+      "Name": "爆炸安瓿"
+    },
+    {
+      "Id": "FAIRY_IN_A_BOTTLE",
+      "Name": "瓶中精灵"
+    },
+    {
+      "Id": "FIRE_POTION",
+      "Name": "火焰药水"
+    },
+    {
+      "Id": "FLEX_POTION",
+      "Name": "肌肉药水"
+    },
+    {
+      "Id": "FOCUS_POTION",
+      "Name": "集中药水"
+    },
+    {
+      "Id": "FORTIFIER",
+      "Name": "固化药水"
+    },
+    {
+      "Id": "FOUL_POTION",
+      "Name": "污浊药水"
+    },
+    {
+      "Id": "FRUIT_JUICE",
+      "Name": "果汁"
+    },
+    {
+      "Id": "FYSH_OIL",
+      "Name": "异鱼之油"
+    },
+    {
+      "Id": "GAMBLERS_BREW",
+      "Name": "赌徒特酿"
+    },
+    {
+      "Id": "GHOST_IN_A_JAR",
+      "Name": "罐装幽灵"
+    },
+    {
+      "Id": "GIGANTIFICATION_POTION",
+      "Name": "超巨化药水"
+    },
+    {
+      "Id": "GLOWWATER_POTION",
+      "Name": "发光水"
+    },
+    {
+      "Id": "HEART_OF_IRON",
+      "Name": "铁心药水"
+    },
+    {
+      "Id": "KINGS_COURAGE",
+      "Name": "王之勇气"
+    },
+    {
+      "Id": "LIQUID_BRONZE",
+      "Name": "流动铜液"
+    },
+    {
+      "Id": "LIQUID_MEMORIES",
+      "Name": "液态记忆"
+    },
+    {
+      "Id": "LUCKY_TONIC",
+      "Name": "幸运补剂"
+    },
+    {
+      "Id": "MAZALETHS_GIFT",
+      "Name": "马萨雷斯的赠礼"
+    },
+    {
+      "Id": "OROBIC_ACID",
+      "Name": "欧洛巴斯之酸"
+    },
+    {
+      "Id": "POISON_POTION",
+      "Name": "毒药水"
+    },
+    {
+      "Id": "POTION_OF_BINDING",
+      "Name": "缚魂药水"
+    },
+    {
+      "Id": "POTION_OF_CAPACITY",
+      "Name": "扩容药水"
+    },
+    {
+      "Id": "POTION_OF_DOOM",
+      "Name": "灾厄药水"
+    },
+    {
+      "Id": "POTION_SHAPED_ROCK",
+      "Name": "药水形状的石头"
+    },
+    {
+      "Id": "POT_OF_GHOULS",
+      "Name": "尸鬼瓮"
+    },
+    {
+      "Id": "POWDERED_DEMISE",
+      "Name": "消亡粉末"
+    },
+    {
+      "Id": "POWER_POTION",
+      "Name": "能力药水"
+    },
+    {
+      "Id": "RADIANT_TINCTURE",
+      "Name": "明耀酊剂"
+    },
+    {
+      "Id": "REGEN_POTION",
+      "Name": "再生药水"
+    },
+    {
+      "Id": "SHACKLING_POTION",
+      "Name": "镣铐药水"
+    },
+    {
+      "Id": "SHIP_IN_A_BOTTLE",
+      "Name": "瓶中船"
+    },
+    {
+      "Id": "SKILL_POTION",
+      "Name": "技能药水"
+    },
+    {
+      "Id": "SNECKO_OIL",
+      "Name": "异蛇之油"
+    },
+    {
+      "Id": "SOLDIERS_STEW",
+      "Name": "士兵炖汤"
+    },
+    {
+      "Id": "SPEED_POTION",
+      "Name": "速度药水"
+    },
+    {
+      "Id": "STABLE_SERUM",
+      "Name": "稳定血清"
+    },
+    {
+      "Id": "STAR_POTION",
+      "Name": "星星药水"
+    },
+    {
+      "Id": "STRENGTH_POTION",
+      "Name": "力量药水"
+    },
+    {
+      "Id": "SWIFT_POTION",
+      "Name": "迅捷药水"
+    },
+    {
+      "Id": "TOUCH_OF_INSANITY",
+      "Name": "癫狂之触"
+    },
+    {
+      "Id": "VULNERABLE_POTION",
+      "Name": "易伤药水"
+    },
+    {
+      "Id": "WEAK_POTION",
+      "Name": "虚弱药水"
+    }
+  ]
+}

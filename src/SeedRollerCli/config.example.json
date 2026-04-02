@@ -1,0 +1,17 @@
+{
+  "gameDataPath": "I:/SteamLibrary/steamapps/common/Slay the Spire 2/data_sts2_windows_x86_64",
+  "seedInfoPath": "seed_info.json",
+  "startSeed": "1234567890",
+  "count": 50,
+  "mode": "random",
+  "character": "ironclad",
+  "ascension": 0,
+  "resultJson": "seed_results.json",
+  "filter": {
+    "kind": "positive",
+    "relicIds": ["ARCANE_SCROLL", "POMANDER"],
+    "cardIds": ["NEOWS_FURY"],
+    "potionIds": [],
+    "relicTerms": []
+  }
+}
