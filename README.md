@@ -68,9 +68,9 @@ CLI 版本可参照 [docs/PUBLISHING.md](docs/PUBLISHING.md) 使用 `dotnet publish` 生
 
 ## 持续集成 & 发布
 
-- `.github/workflows/ui-build.yml` 使用仓库中的 `game_libs/` 进行 `dotnet restore/build/publish`，并上传 `seedroller-ui-win-x64` 单文件包。
-- 若不希望直接托管 DLL，可删除该目录，并在 CI 中改为私有下载（详见工作流脚本）。
-- 需要扩展发布流程（如 Release、签名）时，可在此工作流基础上追加 job。
+- `.github/workflows/ui-build.yml`：针对 `main/master` 的 push/PR，负责常规构建并上传 `seedroller-ui-win-x64` artifact。
+- `.github/workflows/release-build.yml`：当推送 `v*` 标签时运行，重新打包并把 zip 自动上传到 GitHub Release。
+- 若不希望直接托管 DLL，可删除 `game_libs/`，并在 CI 中改为私有下载方案。
 
 ## 许可
 

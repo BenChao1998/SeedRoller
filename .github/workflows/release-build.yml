@@ -1,19 +1,14 @@
-name: Build SeedRoller UI
+name: Release SeedRoller UI
 
 on:
   push:
-    branches: [ main, master ]
-    paths:
-      - "src/**"
-      - "game_libs/**"
-      - ".github/workflows/ui-build.yml"
-      - "README.md"
-  pull_request:
-    branches: [ main, master ]
+    tags: ['v*']
 
 jobs:
-  build-ui:
+  release-ui:
     runs-on: windows-latest
+    permissions:
+      contents: write
     env:
       GAME_DATA_PATH: ${{ github.workspace }}\game_libs
 
@@ -73,3 +68,11 @@ jobs:
         with:
           name: seedroller-ui-win-x64
           path: ${{ steps.package.outputs.artifactPath }}
+
+      - name: Publish GitHub Release asset
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: ${{ steps.package.outputs.artifactPath }}
+          draft: false
+          prerelease: false
