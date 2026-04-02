@@ -27,11 +27,9 @@ jobs:
           if (-not (Test-Path $env:GAME_DATA_PATH)) {
             Write-Error "game_libs 目录不存在，请确认仓库已包含 sts2.dll/0Harmony.dll。"
           }
-          if (-not (Test-Path (Join-Path $env:GAME_DATA_PATH 'sts2.dll'))) {
-            Write-Error "缺少 sts2.dll"
-          }
-          if (-not (Test-Path (Join-Path $env:GAME_DATA_PATH '0Harmony.dll'))) {
-            Write-Error "缺少 0Harmony.dll"
+          foreach ($dll in 'sts2.dll','0Harmony.dll') {
+            $full = Join-Path $env:GAME_DATA_PATH $dll
+            if (-not (Test-Path $full)) { Write-Error "缺少 $dll" }
           }
 
       - name: Setup .NET
@@ -40,14 +38,15 @@ jobs:
           dotnet-version: "9.0.x"
 
       - name: Restore
-        run: dotnet restore src/SeedRollerUI/SeedRollerUI.csproj /p:GameDataPath="$env:GAME_DATA_PATH"
         shell: pwsh
+        run: dotnet restore src/SeedRollerUI/SeedRollerUI.csproj /p:GameDataPath="$env:GAME_DATA_PATH"
 
       - name: Build
-        run: dotnet build src/SeedRollerUI/SeedRollerUI.csproj -c Release --no-restore /p:GameDataPath="$env:GAME_DATA_PATH"
         shell: pwsh
+        run: dotnet build src/SeedRollerUI/SeedRollerUI.csproj -c Release --no-restore /p:GameDataPath="$env:GAME_DATA_PATH"
 
       - name: Publish WPF UI
+        shell: pwsh
         run: |
           dotnet publish src/SeedRollerUI/SeedRollerUI.csproj `
             -c Release `
@@ -58,16 +57,16 @@ jobs:
             /p:GameDataPath="$env:GAME_DATA_PATH" `
             /p:DebugType=None `
             /p:DebugSymbols=false
-        shell: pwsh
 
       - name: Package artifact
         id: package
+        shell: pwsh
         run: |
-          $publishDir = Join-Path 'src/SeedRollerUI/bin/Release/net9.0-windows/win-x64/publish'
+          $publishDir = Join-Path $env:GITHUB_WORKSPACE 'src/SeedRollerUI/bin/Release/net9.0-windows/win-x64/publish'
+          if (-not (Test-Path $publishDir)) { Write-Error "发布目录不存在: $publishDir" }
           $zipPath = Join-Path $env:RUNNER_TEMP 'seedroller-ui-win-x64.zip'
           Compress-Archive -Path (Join-Path $publishDir '*') -DestinationPath $zipPath -Force
           "artifactPath=$zipPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-        shell: pwsh
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
