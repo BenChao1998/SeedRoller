@@ -5,6 +5,7 @@ on:
     branches: [ main, master ]
     paths:
       - "src/**"
+      - "game_libs/**"
       - ".github/workflows/ui-build.yml"
       - "README.md"
   pull_request:
@@ -13,10 +14,25 @@ on:
 jobs:
   build-ui:
     runs-on: windows-latest
+    env:
+      GAME_DATA_PATH: ${{ github.workspace }}\game_libs
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Ensure game libs exist
+        shell: pwsh
+        run: |
+          if (-not (Test-Path $env:GAME_DATA_PATH)) {
+            Write-Error "game_libs 目录不存在，请确认仓库已包含 sts2.dll/0Harmony.dll。"
+          }
+          if (-not (Test-Path (Join-Path $env:GAME_DATA_PATH 'sts2.dll'))) {
+            Write-Error "缺少 sts2.dll"
+          }
+          if (-not (Test-Path (Join-Path $env:GAME_DATA_PATH '0Harmony.dll'))) {
+            Write-Error "缺少 0Harmony.dll"
+          }
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -24,10 +40,12 @@ jobs:
           dotnet-version: "9.0.x"
 
       - name: Restore
-        run: dotnet restore src/SeedRollerUI/SeedRollerUI.csproj
+        run: dotnet restore src/SeedRollerUI/SeedRollerUI.csproj /p:GameDataPath="$env:GAME_DATA_PATH"
+        shell: pwsh
 
       - name: Build
-        run: dotnet build src/SeedRollerUI/SeedRollerUI.csproj -c Release --no-restore
+        run: dotnet build src/SeedRollerUI/SeedRollerUI.csproj -c Release --no-restore /p:GameDataPath="$env:GAME_DATA_PATH"
+        shell: pwsh
 
       - name: Publish WPF UI
         run: |
@@ -37,6 +55,7 @@ jobs:
             --self-contained true `
             /p:PublishSingleFile=true `
             /p:IncludeNativeLibrariesForSelfExtract=true `
+            /p:GameDataPath="$env:GAME_DATA_PATH" `
             /p:DebugType=None `
             /p:DebugSymbols=false
         shell: pwsh

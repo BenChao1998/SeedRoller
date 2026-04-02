@@ -13,30 +13,28 @@ SeedRoller 是一个针对《Slay the Spire 2》首层奖励的种子滚动工具，包含：
 ├─README.md
 ├─SeedRoller.sln            # 解决方案
 ├─docs/                     # 说明文档
+├─game_libs/                # 随仓库提供的游戏 DLL（sts2.dll、0Harmony.dll）
 ├─src/
-│  ├─SeedRollerCli/         # CLI 工程
-│  │  ├─config.example.json
-│  │  ├─config.example.jsonc
-│  │  ├─seed_info.json      # 示例本地化数据
-│  │  └─启动说明.txt
-│  └─SeedRollerUI/          # WPF 工程
-│     ├─config.json         # UI 的默认配置示例
-│     └─seed_info.json
-└─.gitignore
+│  ├─SeedRollerCli/
+│  └─SeedRollerUI/
+└─.github/workflows/
 ```
+
+> **注意**：`game_libs/` 下的 DLL 直接来自游戏本体，若要公开仓库，请先确认版权与授权问题；必要时可改为手动复制，自行删除这些文件。
 
 ## 快速上手
 
 ### A. 本地编译
 
 1. 安装 [.NET SDK 9.0](https://dotnet.microsoft.com/)。
-2. 准备游戏 `data_sts2_windows_x86_64` 目录，并记录绝对路径。
-3. 将 `seed_info.json` 放置到可执行文件同目录，或通过配置指定它的位置。
-4. 运行 CLI：
+2. 保证 `game_libs/` 已包含 `sts2.dll` 与 `0Harmony.dll`（仓库默认已放置；如需更新可自行替换）。
+3. 准备游戏 `data_sts2_windows_x86_64` 目录，并记录绝对路径（若缺省则使用 `game_libs/`）。
+4. 将 `seed_info.json` 放置到可执行文件同目录，或通过配置指定它的位置。
+5. 运行 CLI：
    ```powershell
    dotnet run --project src/SeedRollerCli/SeedRollerCli.csproj -- --count 50 --character ironclad --seed-info seed_info.json
    ```
-5. 运行 UI：
+6. 运行 UI：
    ```powershell
    dotnet run --project src/SeedRollerUI/SeedRollerUI.csproj
    ```
@@ -44,14 +42,12 @@ SeedRoller 是一个针对《Slay the Spire 2》首层奖励的种子滚动工具，包含：
 
 ### B. 使用 Release 包
 
-GitHub Actions 会在 push / PR 时自动构建 `seedroller-ui-win-x64` 工件；如创建 Release，将同一 zip 附在版本页面。下载后：
+GitHub Actions 会在 push / PR 时自动构建 `seedroller-ui-win-x64` 工件；如创建 Release，将同一 zip 附在版本页面。下载并解压后：
 
-1. 解压 zip，将 `SeedRollerUI.exe` 与 `seed_info.json` 放在同一目录。
-2. 双击运行，按 UI 提示填写 `Data 路径` 与筛选条件即可。
+1. 确认 zip 中含有 `SeedRollerUI.exe`、`seed_info.json`、`game_libs/`。
+2. 双击运行 `SeedRollerUI.exe`，按 UI 提示填写 `Data 路径` 与筛选条件即可。
 
 CLI 版本可参照 [docs/PUBLISHING.md](docs/PUBLISHING.md) 使用 `dotnet publish` 生成单文件可执行包。
-
-更多细节请参阅 [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md)。
 
 ## 文档索引
 
@@ -62,7 +58,7 @@ CLI 版本可参照 [docs/PUBLISHING.md](docs/PUBLISHING.md) 使用 `dotnet publish` 生
 
 ## 贡献
 
-- 所有源代码均位于 `src/` 目录，可通过 `SeedRoller.sln` 直接在 Visual Studio / Rider / VS Code 中打开。
+- 所有源代码均位于 `src/` 目录，可通过 `SeedRoller.sln` 打开。
 - UI 项目引用 CLI，因此修改 CLI 的导出模型后需同步更新 UI 绑定。
 - 提交 PR 之前请至少运行：
   ```powershell
@@ -72,8 +68,9 @@ CLI 版本可参照 [docs/PUBLISHING.md](docs/PUBLISHING.md) 使用 `dotnet publish` 生
 
 ## 持续集成 & 发布
 
-- `.github/workflows/ui-build.yml` 会在 push / PR 时自动 `dotnet restore/build/publish`，并上传 `seedroller-ui-win-x64` 单文件包作为构建工件。
-- 如需扩展 CLI 或自动发布，可在该工作流基础上新增 job（例如上传 Release、代码签名等）。
+- `.github/workflows/ui-build.yml` 使用仓库中的 `game_libs/` 进行 `dotnet restore/build/publish`，并上传 `seedroller-ui-win-x64` 单文件包。
+- 若不希望直接托管 DLL，可删除该目录，并在 CI 中改为私有下载（详见工作流脚本）。
+- 需要扩展发布流程（如 Release、签名）时，可在此工作流基础上追加 job。
 
 ## 许可
 

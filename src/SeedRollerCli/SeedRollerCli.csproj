@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <GameDataPath Condition="'$(GameDataPath)' == '' and Exists('$(MSBuildProjectDirectory)\\..\\..\\game_libs\\sts2.dll')">$(MSBuildProjectDirectory)\..\..\game_libs</GameDataPath>
     <GameDataPath Condition="'$(GameDataPath)' == '' and '$(STS2_DATA_PATH)' != ''">$(STS2_DATA_PATH)</GameDataPath>
     <GameDataPath Condition="'$(GameDataPath)' == ''">I:\SteamLibrary\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64</GameDataPath>
   </PropertyGroup>
