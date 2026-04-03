@@ -92,10 +92,18 @@ internal static class GameAssemblyResolver
             return null;
         }
 
-        var candidate = Path.Combine(_gameDataPath, name + ".dll");
-        if (File.Exists(candidate))
+        string[] candidates =
+        [
+            Path.Combine(_gameDataPath, name + ".dll"),
+            Path.Combine(_gameDataPath, "GodotSharp", name + ".dll")
+        ];
+
+        foreach (var candidate in candidates)
         {
-            return Assembly.LoadFrom(candidate);
+            if (File.Exists(candidate))
+            {
+                return Assembly.LoadFrom(candidate);
+            }
         }
 
         return null;

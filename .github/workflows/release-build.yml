@@ -89,6 +89,12 @@ jobs:
           $cliTarget = Join-Path $uiPublish 'cli'
           if (Test-Path $cliTarget) { Remove-Item $cliTarget -Recurse -Force }
           Copy-Item $cliPublish $cliTarget -Recurse -Force
+          $gameLibsSrc = Join-Path $env:GITHUB_WORKSPACE 'game_libs'
+          if (Test-Path $gameLibsSrc) {
+            $gameLibsDest = Join-Path $uiPublish 'game_libs'
+            if (Test-Path $gameLibsDest) { Remove-Item $gameLibsDest -Recurse -Force }
+            Copy-Item $gameLibsSrc $gameLibsDest -Recurse -Force
+          }
           $zipPath = Join-Path $env:GITHUB_WORKSPACE 'seedroller-ui-win-x64.zip'
           Compress-Archive -Path (Join-Path $uiPublish '*') -DestinationPath $zipPath -Force
           "artifactPath=$zipPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
