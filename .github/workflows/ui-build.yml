@@ -1,4 +1,4 @@
-name: Build SeedRoller UI
+ï»¿name: Build SeedRoller UI
 
 on:
   push:
@@ -25,11 +25,11 @@ jobs:
         shell: pwsh
         run: |
           if (-not (Test-Path $env:GAME_DATA_PATH)) {
-            Write-Error "game_libs Ä¿Â¼²»´æÔÚ£¬ÇëÈ·ÈÏ²Ö¿âÒÑ°üº¬ sts2.dll/0Harmony.dll¡£"
+            Write-Error "game_libs ç›®å½•ä¸å­˜åœ¨ï¼Œè¯·ç¡®è®¤ä»“åº“å·²åŒ…å« sts2.dll/0Harmony.dllã€‚"
           }
           foreach ($dll in 'sts2.dll','0Harmony.dll') {
             $full = Join-Path $env:GAME_DATA_PATH $dll
-            if (-not (Test-Path $full)) { Write-Error "È±ÉÙ $dll" }
+            if (-not (Test-Path $full)) { Write-Error "ç¼ºå°‘ $dll" }
           }
 
       - name: Setup .NET
@@ -81,8 +81,8 @@ jobs:
         run: |
           $uiPublish = Join-Path $env:GITHUB_WORKSPACE 'src/SeedRollerUI/bin/Release/net9.0-windows/win-x64/publish'
           $cliPublish = Join-Path $env:GITHUB_WORKSPACE 'src/SeedRollerCli/bin/Release/net9.0/win-x64/publish'
-          if (-not (Test-Path $uiPublish)) { Write-Error "·¢²¼Ä¿Â¼²»´æÔÚ: $uiPublish" }
-          if (-not (Test-Path $cliPublish)) { Write-Error "CLI ·¢²¼Ä¿Â¼²»´æÔÚ: $cliPublish" }
+          if (-not (Test-Path $uiPublish)) { Write-Error "å‘å¸ƒç›®å½•ä¸å­˜åœ¨: $uiPublish" }
+          if (-not (Test-Path $cliPublish)) { Write-Error "CLI å‘å¸ƒç›®å½•ä¸å­˜åœ¨: $cliPublish" }
           $seedInfoSrc = Join-Path $env:GITHUB_WORKSPACE 'src/SeedRollerUI/seed_info.json'
           if (Test-Path $seedInfoSrc) {
             Copy-Item $seedInfoSrc (Join-Path $uiPublish 'seed_info.json') -Force
@@ -96,8 +96,20 @@ jobs:
             if (Test-Path $gameLibsDest) { Remove-Item $gameLibsDest -Recurse -Force }
             Copy-Item $gameLibsSrc $gameLibsDest -Recurse -Force
           }
+          $packageRoot = Join-Path $env:GITHUB_WORKSPACE 'seedroller-ui-package'
+          if (Test-Path $packageRoot) { Remove-Item $packageRoot -Recurse -Force }
+          $uiDest = Join-Path $packageRoot 'SeedRollerUI'
+          New-Item -ItemType Directory -Path $uiDest -Force | Out-Null
+          Copy-Item -Path (Join-Path $uiPublish '*') -Destination $uiDest -Recurse -Force
+          $shortcutPath = Join-Path $packageRoot 'SeedRollerUI.lnk'
+          $shell = New-Object -ComObject WScript.Shell
+          $shortcut = $shell.CreateShortcut($shortcutPath)
+          $shortcut.TargetPath = Join-Path $uiDest 'SeedRollerUI.exe'
+          $shortcut.WorkingDirectory = $uiDest
+          $shortcut.IconLocation = $shortcut.TargetPath
+          $shortcut.Save()
           $zipPath = Join-Path $env:GITHUB_WORKSPACE 'seedroller-ui-win-x64.zip'
-          Compress-Archive -Path (Join-Path $uiPublish '*') -DestinationPath $zipPath -Force
+          Compress-Archive -Path (Join-Path $packageRoot '*') -DestinationPath $zipPath -Force
           "artifactPath=$zipPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
       - name: Upload artifact
