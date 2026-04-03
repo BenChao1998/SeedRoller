@@ -55,8 +55,6 @@ jobs:
             -c Release `
             -r win-x64 `
             --self-contained true `
-            /p:PublishSingleFile=true `
-            /p:IncludeNativeLibrariesForSelfExtract=true `
             /p:GameDataPath="$env:GAME_DATA_PATH" `
             /p:DebugType=None `
             /p:DebugSymbols=false
@@ -68,8 +66,6 @@ jobs:
             -c Release `
             -r win-x64 `
             --self-contained true `
-            /p:PublishSingleFile=true `
-            /p:IncludeNativeLibrariesForSelfExtract=true `
             /p:GameDataPath="$env:GAME_DATA_PATH" `
             /p:DebugType=None `
             /p:DebugSymbols=false
