@@ -54,6 +54,11 @@ public sealed class SeedRollerRunner
         ArgumentNullException.ThrowIfNull(options);
 
         Initialize(options);
+        return RunCore(options, progress, cancellationToken);
+    }
+
+    private static RollerRunSummary RunCore(CliOptions options, IProgress<RollerProgress>? progress, CancellationToken cancellationToken)
+    {
         var resultWriter = new RollResultWriter(options.Filter, options.ResultJsonPath);
         var roller = new NeowSeedRoller(options.ResolveCharacter(), options.Ascension);
         var seeds = SeedSequence.Generate(options).Take(options.Count);
