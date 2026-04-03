@@ -3,14 +3,14 @@
   "SeedInfoPath": null,
   "StartSeed": "0000000000",
   "Count": 50000,
-  "Mode": "random",
+  "Mode": "until-match",
   "Character": "silent",
   "Ascension": 10,
   "Filter": {
     "Kind": null,
     "RelicTerms": [],
     "RelicIds": [
-      "LEAFY_POULTICE"
+      "SCROLL_BOXES"
     ],
     "CardIds": [
       "ACROBATICS",

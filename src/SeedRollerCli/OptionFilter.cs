@@ -45,8 +45,8 @@ internal sealed class OptionFilter
     {
         var normalizedRelicTerms = NormalizeTerms(relicTerms);
         var normalizedRelicIds = NormalizeTerms(relicIds);
-        var normalizedCardIds = NormalizeTerms(cardIds);
-        var normalizedPotionIds = NormalizeTerms(potionIds);
+        var normalizedCardIds = NormalizeTerms(cardIds, deduplicate: false);
+        var normalizedPotionIds = NormalizeTerms(potionIds, deduplicate: false);
 
         var hasCriteria =
             kind.HasValue ||
@@ -166,7 +166,7 @@ internal sealed class OptionFilter
         return true;
     }
 
-    private static List<string> NormalizeTerms(IEnumerable<string>? terms)
+    private static List<string> NormalizeTerms(IEnumerable<string>? terms, bool deduplicate = true)
     {
         if (terms == null)
         {
@@ -175,11 +175,21 @@ internal sealed class OptionFilter
 
         var filtered = terms
             .Where(t => !string.IsNullOrWhiteSpace(t))
-            .Select(t => t.Trim())
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToList();
+            .Select(t => t.Trim());
 
-        return filtered.Count > 0 ? filtered : new List<string>();
+        List<string> list;
+        if (deduplicate)
+        {
+            list = filtered
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+        }
+        else
+        {
+            list = filtered.ToList();
+        }
+
+        return list.Count > 0 ? list : new List<string>();
     }
 
     private static bool Contains(string? text, string term)
