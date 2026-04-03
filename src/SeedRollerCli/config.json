@@ -1,6 +1,5 @@
 {
   "gameDataPath": "I:/SteamLibrary/steamapps/common/Slay the Spire 2/data_sts2_windows_x86_64",
-  "seedInfoPath": "seed_info.json",
   "startSeed": "1234567890",
   "count": 200,
   "mode": "random",

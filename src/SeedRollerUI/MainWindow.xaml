@@ -35,7 +35,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0"
@@ -52,25 +51,12 @@
                                 Click="BrowseGameData_Click" />
 
                         <TextBlock Grid.Row="1"
-                                   Text="seed_info.json"
-                                   VerticalAlignment="Center" />
-                        <TextBox Grid.Row="1"
-                                 Grid.Column="1"
-                                 Margin="6,4"
-                                 Text="{Binding SeedInfoPath, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Row="1"
-                                Grid.Column="2"
-                                Margin="6,4,0,4"
-                                Content="选择…"
-                                Click="BrowseSeedInfo_Click" />
-
-                        <TextBlock Grid.Row="2"
                                    Grid.ColumnSpan="3"
                                    Margin="0,4,0,0"
                                    Foreground="#FF5A5A5A"
                                    FontSize="12"
                                    TextWrapping="Wrap"
-                                   Text="seed_info.json 存放遗物/卡牌/药水的本地化名称，默认读取程序同目录，可在此指定其他位置。" />
+                                   Text="seed_info.json 已作为内置资源随发布包更新，终端用户无需再手动选择，仅需保证 Data 路径指向正确的游戏目录。" />
                     </Grid>
                 </GroupBox>
 
@@ -101,12 +87,13 @@
                                   SelectedValue="{Binding SelectedCharacter}" />
                         <TextBlock Grid.Row="0"
                                    Grid.Column="2"
-                                   Text="心境等级"
+                                   Text="进阶等级"
                                    VerticalAlignment="Center" />
-                        <TextBox Grid.Row="0"
-                                 Grid.Column="3"
-                                 Margin="6,4"
-                                 Text="{Binding AscensionText, UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox Grid.Row="0"
+                                  Grid.Column="3"
+                                  Margin="6,4"
+                                  ItemsSource="{Binding AscensionOptions}"
+                                  SelectedItem="{Binding AscensionText, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock Grid.Row="1"
                                    Text="种子模式"
@@ -140,104 +127,161 @@
 
                 <GroupBox Header="筛选条件"
                           Margin="0,12,0,0">
-                    <StackPanel Margin="0,8,0,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="120" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Row="0"
-                                       Text="选项类型"
-                                       VerticalAlignment="Center" />
-                            <ComboBox Grid.Row="0"
-                                      Grid.Column="1"
-                                      Margin="6,4"
-                                      ItemsSource="{Binding FilterKindOptions}"
-                                      SelectedValuePath="Value"
-                                      DisplayMemberPath="DisplayName"
-                                      SelectedValue="{Binding SelectedFilterKind}" />
-
-                            <StackPanel Grid.Row="1"
-                                        Grid.ColumnSpan="2"
-                                        Orientation="Horizontal"
-                                        Margin="6,0,0,4">
-                                <TextBlock Text="遗物筛选方式："
-                                           VerticalAlignment="Center"
-                                           Margin="0,0,8,0" />
-                                <RadioButton Content="按关键字"
-                                             GroupName="RelicFilterMode"
-                                             Margin="0,0,12,0"
-                                             IsChecked="{Binding IsRelicKeywordMode}" />
-                                <RadioButton Content="按 ID"
-                                             GroupName="RelicFilterMode"
-                                             IsChecked="{Binding IsRelicIdMode}" />
+                        <TextBlock Grid.Row="0"
+                                   Text="遗物筛选"
+                                   VerticalAlignment="Top" />
+                        <DockPanel Grid.Row="0"
+                                   Grid.Column="1"
+                                   Margin="6,4,0,4">
+                            <TextBlock DockPanel.Dock="Right"
+                                       Width="170"
+                                       Margin="12,0,0,0"
+                                       Foreground="#FF666666"
+                                       TextWrapping="Wrap"
+                                       Text="提示：输入遗物名称或 ID 即可实时过滤列表，选好后点击“添加”加入下方清单。" />
+                            <StackPanel>
+                                <TextBox Width="280"
+                                         Margin="0,0,0,6"
+                                         HorizontalAlignment="Left"
+                                         Text="{Binding RelicSearchText, UpdateSourceTrigger=PropertyChanged}"
+                                         ToolTip="输入文字以筛选遗物列表" />
+                                <DockPanel>
+                                    <ComboBox Width="280"
+                                              HorizontalAlignment="Left"
+                                              ItemsSource="{Binding AvailableRelicsView}"
+                                              DisplayMemberPath="Display"
+                                              SelectedItem="{Binding RelicToAdd}" />
+                                    <Button Content="添加"
+                                            Width="80"
+                                            Margin="6,0,0,0"
+                                            Click="AddRelic_Click" />
+                                </DockPanel>
+                                <ItemsControl ItemsSource="{Binding SelectedRelics}"
+                                              Margin="0,6,0,0">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel Margin="0,2">
+                                                <Button Content="×"
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,6,0"
+                                                        Click="RemoveRelic_Click" />
+                                                <TextBlock Text="{Binding Display}"
+                                                           VerticalAlignment="Center" />
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </StackPanel>
+                        </DockPanel>
 
-                            <TextBlock Grid.Row="2"
-                                       Text="遗物关键字"
-                                       VerticalAlignment="Top" />
-                            <TextBox Grid.Row="2"
-                                     Grid.Column="1"
-                                     Margin="6,4"
-                                     Height="60"
-                                     AcceptsReturn="True"
-                                     TextWrapping="Wrap"
-                                     VerticalScrollBarVisibility="Auto"
-                                     IsEnabled="{Binding IsRelicKeywordMode}"
-                                     Text="{Binding FilterRelicTerms, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Grid.Row="1"
+                                   Text="卡牌筛选"
+                                   VerticalAlignment="Top" />
+                        <DockPanel Grid.Row="1"
+                                   Grid.Column="1"
+                                   Margin="6,4,0,4">
+                            <TextBlock DockPanel.Dock="Right"
+                                       Width="170"
+                                       Margin="12,0,0,0"
+                                       Foreground="#FF666666"
+                                       TextWrapping="Wrap"
+                                       Text="提示：可按中文名、拼音或 ID 过滤卡牌；列表更新后照常选择并添加。" />
+                            <StackPanel>
+                                <TextBox Width="280"
+                                         Margin="0,0,0,6"
+                                         HorizontalAlignment="Left"
+                                         Text="{Binding CardSearchText, UpdateSourceTrigger=PropertyChanged}"
+                                         ToolTip="输入文字以筛选卡牌列表" />
+                                <DockPanel>
+                                    <ComboBox Width="280"
+                                              HorizontalAlignment="Left"
+                                              ItemsSource="{Binding AvailableCardsView}"
+                                              DisplayMemberPath="Display"
+                                              SelectedItem="{Binding CardToAdd}" />
+                                    <Button Content="添加"
+                                            Width="80"
+                                            Margin="6,0,0,0"
+                                            Click="AddCard_Click" />
+                                </DockPanel>
+                                <ItemsControl ItemsSource="{Binding SelectedCards}"
+                                              Margin="0,6,0,0">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel Margin="0,2">
+                                                <Button Content="×"
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,6,0"
+                                                        Click="RemoveCard_Click" />
+                                                <TextBlock Text="{Binding Display}"
+                                                           VerticalAlignment="Center" />
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </DockPanel>
 
-                            <TextBlock Grid.Row="3"
-                                       Text="遗物 ID"
-                                       VerticalAlignment="Top" />
-                            <TextBox Grid.Row="3"
-                                     Grid.Column="1"
-                                     Margin="6,4"
-                                     Height="60"
-                                     AcceptsReturn="True"
-                                     TextWrapping="Wrap"
-                                     VerticalScrollBarVisibility="Auto"
-                                     IsEnabled="{Binding IsRelicIdMode}"
-                                     Text="{Binding FilterRelicIds, UpdateSourceTrigger=PropertyChanged}" />
-
-                            <TextBlock Grid.Row="4"
-                                       Text="卡牌 ID"
-                                       VerticalAlignment="Top" />
-                            <TextBox Grid.Row="4"
-                                     Grid.Column="1"
-                                     Margin="6,4"
-                                     Height="60"
-                                     AcceptsReturn="True"
-                                     TextWrapping="Wrap"
-                                     VerticalScrollBarVisibility="Auto"
-                                     Text="{Binding FilterCardIds, UpdateSourceTrigger=PropertyChanged}" />
-
-                            <TextBlock Grid.Row="5"
-                                       Text="药水 ID"
-                                       VerticalAlignment="Top" />
-                            <TextBox Grid.Row="5"
-                                     Grid.Column="1"
-                                     Margin="6,4"
-                                     Height="60"
-                                     AcceptsReturn="True"
-                                     TextWrapping="Wrap"
-                                     VerticalScrollBarVisibility="Auto"
-                                     Text="{Binding FilterPotionIds, UpdateSourceTrigger=PropertyChanged}" />
-                        </Grid>
-                        <TextBlock Margin="6,4,6,0"
-                                   Foreground="#FF5A5A5A"
-                                   FontSize="12"
-                                   TextWrapping="Wrap"
-                                   Text="提示：多项可用换行、逗号、分号或 | 分隔。卡牌/药水/遗物 ID 会视为“全部满足”。" />
-                    </StackPanel>
+                        <TextBlock Grid.Row="2"
+                                   Text="药水筛选"
+                                   VerticalAlignment="Top" />
+                        <DockPanel Grid.Row="2"
+                                   Grid.Column="1"
+                                   Margin="6,4,0,4">
+                            <TextBlock DockPanel.Dock="Right"
+                                       Width="170"
+                                       Margin="12,0,0,0"
+                                       Foreground="#FF666666"
+                                       TextWrapping="Wrap"
+                                       Text="提示：支持输入药水名称或 ID 过滤；可连续添加多个药水条件。" />
+                            <StackPanel>
+                                <TextBox Width="280"
+                                         Margin="0,0,0,6"
+                                         HorizontalAlignment="Left"
+                                         Text="{Binding PotionSearchText, UpdateSourceTrigger=PropertyChanged}"
+                                         ToolTip="输入文字以筛选药水列表" />
+                                <DockPanel>
+                                    <ComboBox Width="280"
+                                              HorizontalAlignment="Left"
+                                              ItemsSource="{Binding AvailablePotionsView}"
+                                              DisplayMemberPath="Display"
+                                              SelectedItem="{Binding PotionToAdd}" />
+                                    <Button Content="添加"
+                                            Width="80"
+                                            Margin="6,0,0,0"
+                                            Click="AddPotion_Click" />
+                                </DockPanel>
+                                <ItemsControl ItemsSource="{Binding SelectedPotions}"
+                                              Margin="0,6,0,0">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel Margin="0,2">
+                                                <Button Content="×"
+                                                        Width="24"
+                                                        Height="24"
+                                                        Margin="0,0,6,0"
+                                                        Click="RemovePotion_Click" />
+                                                <TextBlock Text="{Binding Display}"
+                                                           VerticalAlignment="Center" />
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </DockPanel>
+                    </Grid>
                 </GroupBox>
 
                 <GroupBox Header="输出"

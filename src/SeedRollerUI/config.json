@@ -1,13 +1,13 @@
 {
   "GameDataPath": "I:/SteamLibrary/steamapps/common/Slay the Spire 2/data_sts2_windows_x86_64",
-  "SeedInfoPath": "seed_info.json",
+  "SeedInfoPath": null,
   "StartSeed": "1234567890",
-  "Count": 200,
+  "Count": 50000,
   "Mode": "random",
   "Character": "defect",
-  "Ascension": 0,
+  "Ascension": 10,
   "Filter": {
-    "Kind": "positive",
+    "Kind": null,
     "RelicTerms": [],
     "RelicIds": [
       "LEAFY_POULTICE"

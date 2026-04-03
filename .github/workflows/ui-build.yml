@@ -101,6 +101,10 @@ jobs:
           $uiDest = Join-Path $packageRoot 'SeedRollerUI'
           New-Item -ItemType Directory -Path $uiDest -Force | Out-Null
           Copy-Item -Path (Join-Path $uiPublish '*') -Destination $uiDest -Recurse -Force
+          $seedInfoInside = Join-Path $uiDest 'seed_info.json'
+          if (Test-Path $seedInfoInside) {
+            Copy-Item $seedInfoInside (Join-Path $packageRoot 'seed_info.json') -Force
+          }
           $shortcutPath = Join-Path $packageRoot 'SeedRollerUI.lnk'
           $shell = New-Object -ComObject WScript.Shell
           $shortcut = $shell.CreateShortcut($shortcutPath)

@@ -7,7 +7,7 @@
    dotnet run --project SeedRollerCli.csproj -- --config config.json
 
 常用可选参数：
-- --seed-info seed_info.json      指定 seed_info.json 静态资料文件；默认读取程序目录下的同名文件。
+- --seed-info seed_info.json      （可选）仅在测试自定义 seed_info.json 时指定绝对路径；默认优先使用程序集内置或程序目录下的同名文件。
 - --result-json seed_results.json 覆盖结果输出路径；若省略则写入默认文件。
 - --mode incremental              如需旧版“顺序递增”种子，可显式设置该参数，并配合 --start-seed。
 - --start-seed 0000000000         指定顺推起点，random 模式下可省略。

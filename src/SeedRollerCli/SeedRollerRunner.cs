@@ -8,7 +8,7 @@ namespace SeedRollerCli;
 
 public sealed record RollerProgress(int ProcessedSeeds, int MatchedSeeds, int MatchedOptions);
 
-public sealed record RollerRunSummary(int ProcessedSeeds, int MatchedSeeds, int MatchedOptions, string ResultJsonPath);
+public sealed record RollerRunSummary(int ProcessedSeeds, int MatchedSeeds, int MatchedOptions, string ResultJsonPath, bool IsCanceled);
 
 public sealed class RollerFilterSettings
 {
@@ -61,24 +61,53 @@ public sealed class SeedRollerRunner
     {
         var resultWriter = new RollResultWriter(options.Filter, options.ResultJsonPath);
         var roller = new NeowSeedRoller(options.ResolveCharacter(), options.Ascension);
-        var seeds = SeedSequence.Generate(options).Take(options.Count);
+        var seeds = SeedSequence.Generate(options);
+        var canceled = false;
+        var processed = 0;
         foreach (var seed in seeds)
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            if (ShouldStopDueToCount(options, processed))
+            {
+                break;
+            }
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                canceled = true;
+                break;
+            }
+
             var result = roller.Roll(seed);
-            resultWriter.Process(result);
+            processed++;
+            var matched = resultWriter.Process(result);
             progress?.Report(new RollerProgress(
                 resultWriter.TotalSeeds,
                 resultWriter.MatchedSeedCount,
                 resultWriter.MatchedOptionCount));
+
+            if (options.Mode == SeedMode.UntilMatch && matched)
+            {
+                break;
+            }
         }
 
-        resultWriter.Complete();
+        resultWriter.Complete(canceled);
         return new RollerRunSummary(
             resultWriter.TotalSeeds,
             resultWriter.MatchedSeedCount,
             resultWriter.MatchedOptionCount,
-            Path.GetFullPath(resultWriter.OutputPath));
+            Path.GetFullPath(resultWriter.OutputPath),
+            canceled);
+    }
+
+    private static bool ShouldStopDueToCount(CliOptions options, int processedSeeds)
+    {
+        if (options.Mode == SeedMode.UntilMatch)
+        {
+            return false;
+        }
+
+        return processedSeeds >= options.Count;
     }
 
     private static void Initialize(CliOptions options)
@@ -99,7 +128,7 @@ public sealed class SeedRollerRunner
         var normalizedAscension = settings.Ascension < 0 ? 0 : settings.Ascension;
         var normalizedSeed = string.IsNullOrWhiteSpace(settings.StartSeed) ? SeedRollerDefaults.DefaultSeed : settings.StartSeed!;
         var normalizedResultJson = string.IsNullOrWhiteSpace(settings.ResultJsonPath) ? SeedRollerDefaults.DefaultResultJson : settings.ResultJsonPath!;
-        var normalizedSeedInfo = string.IsNullOrWhiteSpace(settings.SeedInfoPath) ? SeedRollerDefaults.DefaultSeedInfo : settings.SeedInfoPath!;
+        var normalizedSeedInfo = string.IsNullOrWhiteSpace(settings.SeedInfoPath) ? null : settings.SeedInfoPath!;
 
         var filter = OptionFilter.Create(
             settings.Filter.Kind,

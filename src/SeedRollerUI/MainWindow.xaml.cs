@@ -46,19 +46,6 @@ public partial class MainWindow : Window
         }
     }
 
-    private void BrowseSeedInfo_Click(object sender, RoutedEventArgs e)
-    {
-        var dialog = new Microsoft.Win32.OpenFileDialog
-        {
-            Filter = "JSON 文件 (*.json)|*.json|所有文�?(*.*)|*.*",
-            FileName = ResolveDefaultFileName(_viewModel.SeedInfoPath, SeedRollerDefaults.DefaultSeedInfo)
-        };
-        if (dialog.ShowDialog() == true)
-        {
-            _viewModel.SeedInfoPath = dialog.FileName;
-        }
-    }
-
     private void BrowseResultJson_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new Microsoft.Win32.SaveFileDialog
@@ -69,6 +56,45 @@ public partial class MainWindow : Window
         if (dialog.ShowDialog() == true)
         {
             _viewModel.ResultJsonPath = dialog.FileName;
+        }
+    }
+
+    private void AddRelic_Click(object sender, RoutedEventArgs e)
+    {
+        _viewModel.AddRelicSelection();
+    }
+
+    private void RemoveRelic_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement element && element.DataContext is SelectableOption option)
+        {
+            _viewModel.RemoveRelicSelection(option);
+        }
+    }
+
+    private void AddCard_Click(object sender, RoutedEventArgs e)
+    {
+        _viewModel.AddCardSelection();
+    }
+
+    private void RemoveCard_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement element && element.DataContext is SelectableOption option)
+        {
+            _viewModel.RemoveCardSelection(option);
+        }
+    }
+
+    private void AddPotion_Click(object sender, RoutedEventArgs e)
+    {
+        _viewModel.AddPotionSelection();
+    }
+
+    private void RemovePotion_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement element && element.DataContext is SelectableOption option)
+        {
+            _viewModel.RemovePotionSelection(option);
         }
     }
 

@@ -24,4 +24,8 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="seed_info.json" LogicalName="SeedRollerCli.seed_info.json" />
+  </ItemGroup>
+
 </Project>

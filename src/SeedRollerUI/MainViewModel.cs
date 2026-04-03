@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using System.Windows.Data;
 using SeedRollerCli;
 
 namespace SeedRollerUI;
@@ -29,60 +30,128 @@ public sealed class MainViewModel : INotifyPropertyChanged
     private readonly IReadOnlyList<EnumOption<SeedMode>> _seedModeOptions =
     [
         new(SeedMode.Random, "随机"),
-        new(SeedMode.Incremental, "递增（顺延）")
+        new(SeedMode.Incremental, "递增（顺延）"),
+        new(SeedMode.UntilMatch, "命中即停")
     ];
 
-    private readonly IReadOnlyList<EnumOption<NeowChoiceKind?>> _filterKindOptions =
-    [
-        new(null, "全部"),
-        new(NeowChoiceKind.Positive, "正向"),
-        new(NeowChoiceKind.Curse, "代价")
-    ];
+    private readonly IReadOnlyList<string> _ascensionOptions =
+        Enumerable.Range(0, 11)
+            .Select(i => i.ToString(CultureInfo.InvariantCulture))
+            .ToArray();
 
+    private readonly ICollectionView _relicView;
+    private readonly ICollectionView _cardView;
+    private readonly ICollectionView _potionView;
     private readonly ObservableCollection<LogEntry> _logs = new();
+    private readonly ObservableCollection<SelectableOption> _availableRelics = new();
+    private readonly ObservableCollection<SelectableOption> _availableCards = new();
+    private readonly ObservableCollection<SelectableOption> _availablePotions = new();
+    private readonly ObservableCollection<SelectableOption> _selectedRelics = new();
+    private readonly ObservableCollection<SelectableOption> _selectedCards = new();
+    private readonly ObservableCollection<SelectableOption> _selectedPotions = new();
 
     private CancellationTokenSource? _cts;
     private string _gameDataPath = SeedRollerDefaults.DefaultGameDataPath;
-    private string? _seedInfoPath = Path.Combine(AppContext.BaseDirectory, SeedRollerDefaults.DefaultSeedInfo);
     private CharacterChoice _selectedCharacter = CharacterChoice.Defect;
     private SeedMode _selectedSeedMode = SeedMode.Random;
     private string _startSeed = SeedRollerDefaults.DefaultSeed;
     private string _countText = "20";
     private string _ascensionText = "0";
-    private NeowChoiceKind? _selectedFilterKind;
-    private string _filterRelicTerms = string.Empty;
-    private string _filterRelicIds = string.Empty;
-    private string _filterCardIds = string.Empty;
-    private string _filterPotionIds = string.Empty;
     private string _resultJsonPath = Path.Combine(AppContext.BaseDirectory, SeedRollerDefaults.DefaultResultJson);
+    private string _relicSearchText = string.Empty;
+    private string _cardSearchText = string.Empty;
+    private string _potionSearchText = string.Empty;
     private bool _isRunning;
-    private FilterInputMode _relicFilterMode = FilterInputMode.Keyword;
     private int _processedSeeds;
     private int _matchedSeeds;
     private int _matchedOptions;
     private string? _statusMessage = "尚未开始";
     private string? _lastResultPath;
+    private SelectableOption? _relicToAdd;
+    private SelectableOption? _cardToAdd;
+    private SelectableOption? _potionToAdd;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    public MainViewModel()
+    {
+        _relicView = CollectionViewSource.GetDefaultView(_availableRelics);
+        _relicView.Filter = RelicFilter;
+        _cardView = CollectionViewSource.GetDefaultView(_availableCards);
+        _cardView.Filter = CardFilter;
+        _potionView = CollectionViewSource.GetDefaultView(_availablePotions);
+        _potionView.Filter = PotionFilter;
+
+        LoadSeedInfoOptions();
+    }
+
+    private void LoadSeedInfoOptions()
+    {
+        _availableRelics.Clear();
+        _availableCards.Clear();
+        _availablePotions.Clear();
+
+        var catalog = SeedInfoCatalogProvider.EnsureLoaded();
+        if (catalog == null)
+        {
+            StatusMessage = "未找到 seed_info 数据，输出名称将使用默认 ID";
+            return;
+        }
+
+        foreach (var option in (catalog.Options ?? Array.Empty<SeedInfoOption>())
+                     .Where(o => !string.IsNullOrWhiteSpace(o.RelicId))
+                     .OrderBy(o => o.Title ?? o.RelicId, StringComparer.OrdinalIgnoreCase))
+        {
+            _availableRelics.Add(new SelectableOption(option.RelicId!, FormatRelicLabel(option)));
+        }
+
+        foreach (var card in (catalog.Cards ?? Array.Empty<SeedInfoEntry>())
+                     .Where(c => !string.IsNullOrWhiteSpace(c.Id))
+                     .OrderBy(c => c.Name ?? c.Id, StringComparer.OrdinalIgnoreCase))
+        {
+            _availableCards.Add(new SelectableOption(card.Id, FormatEntryLabel(card)));
+        }
+
+        foreach (var potion in (catalog.Potions ?? Array.Empty<SeedInfoEntry>())
+                     .Where(p => !string.IsNullOrWhiteSpace(p.Id))
+                     .OrderBy(p => p.Name ?? p.Id, StringComparer.OrdinalIgnoreCase))
+        {
+            _availablePotions.Add(new SelectableOption(potion.Id, FormatEntryLabel(potion)));
+        }
+
+        RelicToAdd = _availableRelics.FirstOrDefault();
+        CardToAdd = _availableCards.FirstOrDefault();
+        PotionToAdd = _availablePotions.FirstOrDefault();
+
+        _relicView.Refresh();
+        _cardView.Refresh();
+        _potionView.Refresh();
+    }
+
     public ObservableCollection<LogEntry> Logs => _logs;
+
+    public ICollectionView AvailableRelicsView => _relicView;
+
+    public ICollectionView AvailableCardsView => _cardView;
+
+    public ICollectionView AvailablePotionsView => _potionView;
+
+    public ObservableCollection<SelectableOption> SelectedRelics => _selectedRelics;
+
+    public ObservableCollection<SelectableOption> SelectedCards => _selectedCards;
+
+    public ObservableCollection<SelectableOption> SelectedPotions => _selectedPotions;
 
     public IReadOnlyList<EnumOption<CharacterChoice>> CharacterOptions => _characterOptions;
 
     public IReadOnlyList<EnumOption<SeedMode>> SeedModeOptions => _seedModeOptions;
 
-    public IReadOnlyList<EnumOption<NeowChoiceKind?>> FilterKindOptions => _filterKindOptions;
+    public IReadOnlyList<string> AscensionOptions => _ascensionOptions;
 
     public string GameDataPath
     {
         get => _gameDataPath;
         set => SetProperty(ref _gameDataPath, value);
-    }
-
-    public string? SeedInfoPath
-    {
-        get => _seedInfoPath;
-        set => SetProperty(ref _seedInfoPath, string.IsNullOrWhiteSpace(value) ? null : value.Trim());
     }
 
     public CharacterChoice SelectedCharacter
@@ -103,7 +172,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public bool IsIncrementalMode => SelectedSeedMode == SeedMode.Incremental;
+    public bool IsIncrementalMode => SelectedSeedMode != SeedMode.Random;
 
     public string StartSeed
     {
@@ -123,64 +192,64 @@ public sealed class MainViewModel : INotifyPropertyChanged
         set => SetProperty(ref _ascensionText, value ?? string.Empty);
     }
 
-    public NeowChoiceKind? SelectedFilterKind
+    public string RelicSearchText
     {
-        get => _selectedFilterKind;
-        set => SetProperty(ref _selectedFilterKind, value);
-    }
-
-    public string FilterRelicTerms
-    {
-        get => _filterRelicTerms;
-        set => SetProperty(ref _filterRelicTerms, value ?? string.Empty);
-    }
-
-    public string FilterRelicIds
-    {
-        get => _filterRelicIds;
-        set => SetProperty(ref _filterRelicIds, value ?? string.Empty);
-    }
-
-    public bool IsRelicKeywordMode
-    {
-        get => _relicFilterMode == FilterInputMode.Keyword;
+        get => _relicSearchText;
         set
         {
-            if (value)
+            if (SetProperty(ref _relicSearchText, value ?? string.Empty))
             {
-                SetRelicFilterMode(FilterInputMode.Keyword);
+                _relicView.Refresh();
             }
         }
     }
 
-    public bool IsRelicIdMode
+    public string CardSearchText
     {
-        get => _relicFilterMode == FilterInputMode.Id;
+        get => _cardSearchText;
         set
         {
-            if (value)
+            if (SetProperty(ref _cardSearchText, value ?? string.Empty))
             {
-                SetRelicFilterMode(FilterInputMode.Id);
+                _cardView.Refresh();
             }
         }
     }
 
-    public string FilterCardIds
+    public string PotionSearchText
     {
-        get => _filterCardIds;
-        set => SetProperty(ref _filterCardIds, value ?? string.Empty);
-    }
-
-    public string FilterPotionIds
-    {
-        get => _filterPotionIds;
-        set => SetProperty(ref _filterPotionIds, value ?? string.Empty);
+        get => _potionSearchText;
+        set
+        {
+            if (SetProperty(ref _potionSearchText, value ?? string.Empty))
+            {
+                _potionView.Refresh();
+            }
+        }
     }
 
     public string ResultJsonPath
     {
         get => _resultJsonPath;
         set => SetProperty(ref _resultJsonPath, value ?? string.Empty);
+    }
+
+    public SelectableOption? RelicToAdd
+    {
+        get => _relicToAdd;
+        set => SetProperty(ref _relicToAdd, value);
+    }
+
+    public SelectableOption? CardToAdd
+    {
+        get => _cardToAdd;
+        set => SetProperty(ref _cardToAdd, value);
+    }
+
+    public SelectableOption? PotionToAdd
+    {
+        get => _potionToAdd;
+        set => SetProperty(ref _potionToAdd, value);
     }
 
     public bool IsRunning
@@ -243,6 +312,66 @@ public sealed class MainViewModel : INotifyPropertyChanged
         _logs.Clear();
     }
 
+    public void AddRelicSelection()
+    {
+        if (RelicToAdd is null || HasOption(SelectedRelics, RelicToAdd.Id))
+        {
+            return;
+        }
+
+        SelectedRelics.Add(RelicToAdd);
+    }
+
+    public void RemoveRelicSelection(SelectableOption? option)
+    {
+        if (option == null)
+        {
+            return;
+        }
+
+        SelectedRelics.Remove(option);
+    }
+
+    public void AddCardSelection()
+    {
+        if (CardToAdd is null)
+        {
+            return;
+        }
+
+        SelectedCards.Add(CreateSelectionOption(CardToAdd));
+    }
+
+    public void RemoveCardSelection(SelectableOption? option)
+    {
+        if (option == null)
+        {
+            return;
+        }
+
+        SelectedCards.Remove(option);
+    }
+
+    public void AddPotionSelection()
+    {
+        if (PotionToAdd is null || HasOption(SelectedPotions, PotionToAdd.Id))
+        {
+            return;
+        }
+
+        SelectedPotions.Add(PotionToAdd);
+    }
+
+    public void RemovePotionSelection(SelectableOption? option)
+    {
+        if (option == null)
+        {
+            return;
+        }
+
+        SelectedPotions.Remove(option);
+    }
+
     public void AppendLog(RollerLogLevel level, string message)
     {
         while (_logs.Count >= MaxLogEntries)
@@ -286,13 +415,16 @@ public sealed class MainViewModel : INotifyPropertyChanged
             var summary = await Task.Run(() => runner.Run(settings, progress, logSink, _cts.Token));
 
             LastResultPath = summary.ResultJsonPath;
-            StatusMessage = $"完成：共 {summary.ProcessedSeeds} 个种子，命中 {summary.MatchedSeeds}（{summary.MatchedOptions} 个选项）。";
-            AppendLog(RollerLogLevel.Info, $"结果已保存到：{summary.ResultJsonPath}");
-        }
-        catch (OperationCanceledException)
-        {
-            AppendLog(RollerLogLevel.Warning, "已取消 roll。");
-            StatusMessage = "用户取消。";
+            if (summary.IsCanceled)
+            {
+                StatusMessage = "用户取消。";
+                AppendLog(RollerLogLevel.Warning, $"已取消 roll，当前进度（{summary.ProcessedSeeds} 个种子，命中 {summary.MatchedSeeds}）已保存到：{summary.ResultJsonPath}");
+            }
+            else
+            {
+                StatusMessage = $"完成：共 {summary.ProcessedSeeds} 个种子，命中 {summary.MatchedSeeds}（{summary.MatchedOptions} 个选项）。";
+                AppendLog(RollerLogLevel.Info, $"结果已保存到：{summary.ResultJsonPath}");
+            }
         }
         catch (Exception ex)
         {
@@ -317,11 +449,6 @@ public sealed class MainViewModel : INotifyPropertyChanged
         if (!string.IsNullOrWhiteSpace(config.GameDataPath))
         {
             GameDataPath = config.GameDataPath!;
-        }
-
-        if (!string.IsNullOrWhiteSpace(config.SeedInfoPath))
-        {
-            SeedInfoPath = config.SeedInfoPath!;
         }
 
         if (!string.IsNullOrWhiteSpace(config.StartSeed))
@@ -356,19 +483,9 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
         if (config.Filter is { } filter)
         {
-            SelectedFilterKind = ParseFilterKind(filter.Kind);
-            FilterRelicTerms = JoinTerms(filter.RelicTerms);
-            FilterRelicIds = JoinTerms(filter.RelicIds);
-            FilterCardIds = JoinTerms(filter.CardIds);
-            FilterPotionIds = JoinTerms(filter.PotionIds);
-            if (filter.RelicIds != null && filter.RelicIds.Length > 0)
-            {
-                SetRelicFilterMode(FilterInputMode.Id);
-            }
-            else
-            {
-                SetRelicFilterMode(FilterInputMode.Keyword);
-            }
+            ReplaceSelections(_selectedRelics, filter.RelicIds, _availableRelics);
+            ReplaceSelections(_selectedCards, filter.CardIds, _availableCards, allowDuplicates: true);
+            ReplaceSelections(_selectedPotions, filter.PotionIds, _availablePotions);
         }
 
         StatusMessage = "配置已载入，可直接运行。";
@@ -391,20 +508,24 @@ public sealed class MainViewModel : INotifyPropertyChanged
     {
         var filter = new RollerFilterConfig
         {
-            Kind = FilterKindToString(SelectedFilterKind),
-            RelicTerms = IsRelicKeywordMode ? ParseTerms(FilterRelicTerms).ToArray() : Array.Empty<string>(),
-            RelicIds = IsRelicIdMode ? ParseTerms(FilterRelicIds).ToArray() : Array.Empty<string>(),
-            CardIds = ParseTerms(FilterCardIds).ToArray(),
-            PotionIds = ParseTerms(FilterPotionIds).ToArray()
+            Kind = null,
+            RelicTerms = Array.Empty<string>(),
+            RelicIds = SelectedRelics.Select(option => option.Id).ToArray(),
+            CardIds = SelectedCards.Select(option => option.Id).ToArray(),
+            PotionIds = SelectedPotions.Select(option => option.Id).ToArray()
         };
 
         return new RollerConfig
         {
             GameDataPath = NormalizeOrNull(GameDataPath),
-            SeedInfoPath = NormalizeOrNull(SeedInfoPath),
             StartSeed = NormalizeOrNull(StartSeed),
             Count = ParsePositiveIntOrNull(CountText),
-            Mode = SelectedSeedMode == SeedMode.Incremental ? "incremental" : "random",
+            Mode = SelectedSeedMode switch
+            {
+                SeedMode.Incremental => "incremental",
+                SeedMode.UntilMatch => "until-match",
+                _ => "random"
+            },
             Character = CharacterToString(SelectedCharacter),
             Ascension = ParseNonNegativeIntOrNull(AscensionText),
             ResultJson = NormalizeOrNull(ResultJsonPath),
@@ -429,39 +550,89 @@ public sealed class MainViewModel : INotifyPropertyChanged
             Mode = SelectedSeedMode,
             Character = SelectedCharacter,
             Ascension = ParseNonNegativeInt(AscensionText, 0),
-            ResultJsonPath = string.IsNullOrWhiteSpace(ResultJsonPath) ? SeedRollerDefaults.DefaultResultJson : ResultJsonPath.Trim(),
-            SeedInfoPath = string.IsNullOrWhiteSpace(SeedInfoPath) ? null : SeedInfoPath
+            ResultJsonPath = string.IsNullOrWhiteSpace(ResultJsonPath) ? SeedRollerDefaults.DefaultResultJson : ResultJsonPath.Trim()
         }.WithFilter(builder =>
         {
-            builder.Kind = SelectedFilterKind;
-            builder.RelicTerms.AddRange(IsRelicKeywordMode ? ParseTerms(FilterRelicTerms) : Array.Empty<string>());
-            builder.RelicIds.AddRange(IsRelicIdMode ? ParseTerms(FilterRelicIds) : Array.Empty<string>());
-            builder.CardIds.AddRange(ParseTerms(FilterCardIds));
-            builder.PotionIds.AddRange(ParseTerms(FilterPotionIds));
+            builder.Kind = null;
+            builder.RelicIds.AddRange(SelectedRelics.Select(option => option.Id));
+            builder.CardIds.AddRange(SelectedCards.Select(option => option.Id));
+            builder.PotionIds.AddRange(SelectedPotions.Select(option => option.Id));
         });
     }
 
-    private static IEnumerable<string> ParseTerms(string? raw)
+    private void ReplaceSelections(ObservableCollection<SelectableOption> target, string[]? ids, ObservableCollection<SelectableOption> sourcePool, bool allowDuplicates = false)
     {
-        if (string.IsNullOrWhiteSpace(raw))
+        target.Clear();
+        if (ids == null)
         {
-            return Array.Empty<string>();
+            return;
         }
 
-        return raw.Split(new[] { '\r', '\n', ',', ';', '|' }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(term => term.Trim())
-            .Where(term => term.Length > 0)
-            .Distinct(StringComparer.OrdinalIgnoreCase);
+        foreach (var id in ids)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                continue;
+            }
+
+            if (!allowDuplicates && HasOption(target, id))
+            {
+                continue;
+            }
+
+            var source = FindOptionOrCreate(sourcePool, id);
+            target.Add(allowDuplicates ? CreateSelectionOption(source) : source);
+        }
     }
 
-    private static string JoinTerms(string[]? items)
+    private static bool HasOption(IEnumerable<SelectableOption> source, string id)
     {
-        if (items == null || items.Length == 0)
+        return source.Any(option => string.Equals(option.Id, id, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static SelectableOption FindOptionOrCreate(IEnumerable<SelectableOption> source, string id)
+    {
+        var existing = source.FirstOrDefault(option => string.Equals(option.Id, id, StringComparison.OrdinalIgnoreCase));
+        return existing ?? new SelectableOption(id, id);
+    }
+
+    private static SelectableOption CreateSelectionOption(SelectableOption template)
+    {
+        return new SelectableOption(template.Id, template.Display);
+    }
+
+    private static string FormatRelicLabel(SeedInfoOption option)
+    {
+        var title = string.IsNullOrWhiteSpace(option.Title) ? option.RelicId : option.Title!;
+        var baseLabel = $"{title} ({option.RelicId})";
+        return string.IsNullOrWhiteSpace(option.Note) ? baseLabel : $"{baseLabel} - {option.Note}";
+    }
+
+    private static string FormatEntryLabel(SeedInfoEntry entry)
+    {
+        return string.IsNullOrWhiteSpace(entry.Name) ? entry.Id : $"{entry.Name} ({entry.Id})";
+    }
+
+    private bool RelicFilter(object? item) => MatchesSearch(item, _relicSearchText);
+
+    private bool CardFilter(object? item) => MatchesSearch(item, _cardSearchText);
+
+    private bool PotionFilter(object? item) => MatchesSearch(item, _potionSearchText);
+
+    private static bool MatchesSearch(object? item, string searchText)
+    {
+        if (item is not SelectableOption option)
         {
-            return string.Empty;
+            return false;
         }
 
-        return string.Join(Environment.NewLine, items);
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return true;
+        }
+
+        return option.Display.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+            || option.Id.Contains(searchText, StringComparison.OrdinalIgnoreCase);
     }
 
     private static int ParsePositiveInt(string? text, int fallback)
@@ -509,6 +680,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
         return value.Trim().ToLowerInvariant() switch
         {
             "incremental" or "inc" or "sequential" => SeedMode.Incremental,
+            "until-match" or "untilmatch" or "match" or "stoponmatch" => SeedMode.UntilMatch,
             _ => SeedMode.Random
         };
     }
@@ -523,26 +695,6 @@ public sealed class MainViewModel : INotifyPropertyChanged
             "defect" => CharacterChoice.Defect,
             _ => CharacterChoice.Ironclad
         };
-    }
-
-    private static NeowChoiceKind? ParseFilterKind(string? value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return null;
-        }
-
-        return value.Trim().ToLowerInvariant() switch
-        {
-            "positive" or "pos" or "p" => NeowChoiceKind.Positive,
-            "curse" or "cost" or "negative" or "c" => NeowChoiceKind.Curse,
-            _ => null
-        };
-    }
-
-    private static string? FilterKindToString(NeowChoiceKind? kind)
-    {
-        return kind?.ToString().ToLowerInvariant();
     }
 
     private static string CharacterToString(CharacterChoice choice)
@@ -560,16 +712,6 @@ public sealed class MainViewModel : INotifyPropertyChanged
     private static string? NormalizeOrNull(string? value)
     {
         return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
-    }
-
-    private void SetRelicFilterMode(FilterInputMode mode)
-    {
-        if (_relicFilterMode != mode)
-        {
-            _relicFilterMode = mode;
-            OnPropertyChanged(nameof(IsRelicKeywordMode));
-            OnPropertyChanged(nameof(IsRelicIdMode));
-        }
     }
 
     private bool SetProperty<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
@@ -612,12 +754,6 @@ public sealed record LogEntry(DateTimeOffset Timestamp, RollerLogLevel Level, st
 
 public sealed record EnumOption<T>(T Value, string DisplayName);
 
-public enum FilterInputMode
-{
-    Keyword,
-    Id
-}
-
 file static class RollerSettingsExtensions
 {
     public static RollerSettings WithFilter(this RollerSettings settings, Action<RollerFilterSettings> apply)
@@ -625,4 +761,16 @@ file static class RollerSettingsExtensions
         apply(settings.Filter);
         return settings;
     }
+}
+
+public sealed class SelectableOption
+{
+    public SelectableOption(string id, string display)
+    {
+        Id = id;
+        Display = display;
+    }
+
+    public string Id { get; }
+    public string Display { get; }
 }

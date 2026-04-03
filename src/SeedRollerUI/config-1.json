@@ -1,0 +1,22 @@
+{
+  "GameDataPath": "I:\\SteamLibrary\\steamapps\\common\\Slay the Spire 2\\data_sts2_windows_x86_64",
+  "SeedInfoPath": null,
+  "StartSeed": "0000000000",
+  "Count": 5000,
+  "Mode": "random",
+  "Character": "defect",
+  "Ascension": 10,
+  "Filter": {
+    "Kind": null,
+    "RelicTerms": [],
+    "RelicIds": [
+      "LEAFY_POULTICE"
+    ],
+    "CardIds": [
+      "HAILSTORM",
+      "ECHO_FORM"
+    ],
+    "PotionIds": []
+  },
+  "ResultJson": "J:\\\u6740\u622E\u5C16\u5854mod\\src\\SeedRollerUI\\bin\\Debug\\net9.0-windows\\seed_results.json"
+}
